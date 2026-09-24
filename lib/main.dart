@@ -1,22 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'l10n/app_localizations.dart';
 import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
+import 'services/locale_controller.dart';
 
-void main() => runApp(const KopfLeerenApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final localeController = LocaleController();
+  await localeController.load();
+  runApp(CalmdropApp(localeController: localeController));
+}
 
-class KopfLeerenApp extends StatelessWidget {
-  const KopfLeerenApp({super.key});
+class CalmdropApp extends StatelessWidget {
+  final LocaleController localeController;
+  const CalmdropApp({super.key, required this.localeController});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Kopf leeren',
-      debugShowCheckedModeBanner: false,
-      theme: _buildTheme(Brightness.light),
-      darkTheme: _buildTheme(Brightness.dark),
-      themeMode: ThemeMode.system,
-      home: const SplashScreen(next: HomeScreen()),
+    return ListenableBuilder(
+      listenable: localeController,
+      builder: (context, _) => MaterialApp(
+        onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+        debugShowCheckedModeBanner: false,
+        locale: localeController.locale,
+        supportedLocales: LocaleController.supported,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        theme: _buildTheme(Brightness.light),
+        darkTheme: _buildTheme(Brightness.dark),
+        themeMode: ThemeMode.system,
+        home: SplashScreen(
+          next: HomeScreen(localeController: localeController),
+        ),
+      ),
     );
   }
 

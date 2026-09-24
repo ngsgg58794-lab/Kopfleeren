@@ -1,4 +1,4 @@
-package de.kopfleeren.kopf_leeren
+package com.calmdrop.app
 
 import io.flutter.embedding.android.FlutterActivity
 

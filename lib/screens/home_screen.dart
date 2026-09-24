@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../models/task.dart';
 import '../services/categorizer.dart';
 import '../services/storage_service.dart';
+import '../services/locale_controller.dart';
 import '../services/speech_service.dart';
 import '../widgets/task_tile.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final LocaleController localeController;
+  const HomeScreen({super.key, required this.localeController});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -78,30 +81,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
     setState(() => _listening = true);
 
-    final ok = await _speech.start(onDone: () {
-      if (!mounted) return;
-      setState(() {
-        _listening = false;
-        _controller.text = _controller.text.trim();
-      });
-    }, onResult: (text, isFinal) {
-      if (isFinal) {
-        _baseText += text.isEmpty ? '' : '$text\n';
-        _controller.text = _baseText;
-      } else {
-        _controller.text = _baseText + text;
-      }
-      _controller.selection =
-          TextSelection.collapsed(offset: _controller.text.length);
-      if (!mounted) return;
-      setState(() {});
-    });
+    final ok = await _speech.start(
+        localeId: switch (Localizations.localeOf(context).languageCode) {
+          'de' => 'de_DE',
+          _ => 'en_US',
+        },
+        onDone: () {
+          if (!mounted) return;
+          setState(() {
+            _listening = false;
+            _controller.text = _controller.text.trim();
+          });
+        },
+        onResult: (text, isFinal) {
+          if (isFinal) {
+            _baseText += text.isEmpty ? '' : '$text\n';
+            _controller.text = _baseText;
+          } else {
+            _controller.text = _baseText + text;
+          }
+          _controller.selection =
+              TextSelection.collapsed(offset: _controller.text.length);
+          if (!mounted) return;
+          setState(() {});
+        });
 
     if (!ok && mounted) {
       setState(() => _listening = false);
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(
-            'Spracherkennung nicht verfügbar. Bitte Mikrofon-Zugriff in den Einstellungen erlauben.'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(AppLocalizations.of(context).speechUnavailable),
       ));
     }
   }
@@ -116,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final open = _tasks.where((t) => !t.done).toList();
     final done = _tasks.where((t) => t.done).toList();
 
@@ -126,11 +135,28 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Kopf leeren', style: theme.textTheme.headlineMedium),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(l10n.appTitle,
+                        style: theme.textTheme.headlineMedium),
+                  ),
+                  IconButton(
+                    tooltip: l10n.language,
+                    icon:
+                        Icon(Icons.translate, color: theme.colorScheme.outline),
+                    onPressed: _showLanguagePicker,
+                  ),
+                ],
+              ),
+              Text(
+                l10n.tagline,
+                style: theme.textTheme.titleMedium
+                    ?.copyWith(color: theme.colorScheme.primary),
+              ),
               const SizedBox(height: 4),
               Text(
-                'Sag oder schreib, was dir gerade durch den Kopf geht. '
-                'Ein Gedanke pro Zeile — den Rest sortiert die App.',
+                l10n.intro,
                 style: theme.textTheme.bodySmall
                     ?.copyWith(color: theme.colorScheme.outline),
               ),
@@ -141,8 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    'Noch nichts abgelegt. Schreib oder sprich oben rein, '
-                    'was dich beschäftigt.',
+                    l10n.emptyState,
                     style: theme.textTheme.bodyMedium
                         ?.copyWith(color: theme.colorScheme.outline),
                   ),
@@ -152,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   .map(
                     (c) => _buildGroup(
                       theme,
-                      c.label,
+                      labelFor(l10n, c.id),
                       open.where((t) => t.category == c.id).toList(),
                     ),
                   ),
@@ -160,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
-                    'Alles erledigt. Kopf ist frei.',
+                    l10n.allDone,
                     style: theme.textTheme.bodyMedium
                         ?.copyWith(color: theme.colorScheme.outline),
                   ),
@@ -174,6 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildCapture(ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -191,8 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: theme.textTheme.bodyMedium,
             decoration: InputDecoration(
               border: InputBorder.none,
-              hintText: 'z. B. Zahnarzttermin für Mia vereinbaren\n'
-                  'Steuererklärung anfangen\nMilch, Klopapier, Kaffee',
+              hintText: l10n.captureHint,
               hintStyle: theme.textTheme.bodyMedium
                   ?.copyWith(color: theme.colorScheme.outline),
             ),
@@ -200,37 +225,41 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 8),
           Row(
             children: [
-              GestureDetector(
-                onTap: _toggleListening,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 150),
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _listening
-                        ? theme.colorScheme.error
-                        : Colors.transparent,
-                    border: Border.all(
+              Semantics(
+                button: true,
+                label: l10n.micTooltip,
+                child: GestureDetector(
+                  onTap: _toggleListening,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 150),
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
                       color: _listening
                           ? theme.colorScheme.error
-                          : theme.dividerColor,
-                      width: 1.5,
+                          : Colors.transparent,
+                      border: Border.all(
+                        color: _listening
+                            ? theme.colorScheme.error
+                            : theme.dividerColor,
+                        width: 1.5,
+                      ),
                     ),
-                  ),
-                  child: Icon(
-                    Icons.mic,
-                    size: 18,
-                    color: _listening
-                        ? theme.colorScheme.onError
-                        : theme.colorScheme.outline,
+                    child: Icon(
+                      Icons.mic,
+                      size: 18,
+                      color: _listening
+                          ? theme.colorScheme.onError
+                          : theme.colorScheme.outline,
+                    ),
                   ),
                 ),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  _listening ? 'Ich höre zu … nochmal tippen zum Stoppen' : '',
+                  _listening ? l10n.listening : '',
                   style: theme.textTheme.bodySmall
                       ?.copyWith(color: theme.colorScheme.outline),
                 ),
@@ -241,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   _controller.clear();
                   _focusNode.unfocus();
                 },
-                child: const Text('Ablegen'),
+                child: Text(l10n.addButton),
               ),
             ],
           ),
@@ -269,6 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildDoneSection(ThemeData theme, List<Task> done) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -277,7 +307,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: Text(
-              '${_doneCollapsed ? "Erledigt anzeigen" : "Erledigt ausblenden"} (${done.length})',
+              _doneCollapsed
+                  ? l10n.showDone(done.length)
+                  : l10n.hideDone(done.length),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.outline,
                 decoration: TextDecoration.underline,
@@ -292,6 +324,45 @@ class _HomeScreenState extends State<HomeScreen> {
                 onDelete: () => _delete(t),
               )),
       ],
+    );
+  }
+
+  void _showLanguagePicker() {
+    final l10n = AppLocalizations.of(context);
+    final current = widget.localeController.locale?.languageCode;
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+              child: Text(l10n.language,
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+            for (final (code, label) in [
+              (null, l10n.languageSystem),
+              ('de', 'Deutsch'),
+              ('en', 'English'),
+            ])
+              ListTile(
+                title: Text(label),
+                trailing: current == code
+                    ? Icon(Icons.check,
+                        color: Theme.of(context).colorScheme.primary)
+                    : null,
+                onTap: () {
+                  widget.localeController
+                      .set(code == null ? null : Locale(code));
+                  Navigator.pop(context);
+                },
+              ),
+          ],
+        ),
+      ),
     );
   }
 }

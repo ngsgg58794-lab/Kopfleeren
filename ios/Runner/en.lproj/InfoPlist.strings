@@ -1,0 +1,3 @@
+"CFBundleDisplayName" = "Calmdrop";
+"NSMicrophoneUsageDescription" = "Calmdrop uses the microphone so you can capture your thoughts by voice.";
+"NSSpeechRecognitionUsageDescription" = "Calmdrop converts your speech to text to capture tasks.";

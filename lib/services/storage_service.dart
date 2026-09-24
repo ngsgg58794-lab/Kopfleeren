@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/task.dart';
 
 class StorageService {
-  static const _key = 'kopf_leeren_tasks_v1';
+  static const _key = 'tasks_v1';
 
   Future<List<Task>> load() async {
     final prefs = await SharedPreferences.getInstance();

@@ -33,6 +33,7 @@ class SpeechService {
   /// Liefert false, wenn Spracherkennung nicht verfügbar/erlaubt ist.
   Future<bool> start({
     required void Function(String text, bool isFinal) onResult,
+    required String localeId,
     void Function()? onDone,
   }) async {
     if (!_available) {
@@ -45,7 +46,7 @@ class SpeechService {
         onResult(result.recognizedWords, result.finalResult);
       },
       listenOptions: stt.SpeechListenOptions(
-        localeId: 'de_DE',
+        localeId: localeId,
         listenFor: const Duration(minutes: 5),
         pauseFor: const Duration(seconds: 4),
         partialResults: true,

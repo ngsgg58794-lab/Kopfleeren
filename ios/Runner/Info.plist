@@ -3,17 +3,22 @@
 <plist version="1.0">
 	<dict>
 		<key>NSMicrophoneUsageDescription</key>
-		<string>Kopf leeren nutzt das Mikrofon, damit du Gedanken per Sprache ablegen kannst.</string>
+		<string>Calmdrop uses the microphone so you can capture your thoughts by voice.</string>
 		<key>NSSpeechRecognitionUsageDescription</key>
-		<string>Kopf leeren wandelt deine Sprache in Text um, um Aufgaben zu erfassen.</string>
+		<string>Calmdrop converts your speech to text to capture tasks.</string>
 		<key>ITSAppUsesNonExemptEncryption</key>
 		<false/>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>CFBundleDevelopmentRegion</key>
-		<string>de</string>
+		<string>en</string>
+		<key>CFBundleLocalizations</key>
+		<array>
+			<string>en</string>
+			<string>de</string>
+		</array>
 		<key>CFBundleDisplayName</key>
-		<string>Kopf leeren</string>
+		<string>Calmdrop</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -21,7 +26,7 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<string>Kopf leeren</string>
+		<string>Calmdrop</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>

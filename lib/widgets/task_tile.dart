@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../models/task.dart';
 
 class TaskTile extends StatelessWidget {
@@ -62,12 +63,16 @@ class TaskTile extends StatelessWidget {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: onDelete,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8, top: 2),
-              child:
-                  Icon(Icons.close, size: 18, color: theme.colorScheme.outline),
+          Semantics(
+            button: true,
+            label: AppLocalizations.of(context).deleteTooltip,
+            child: GestureDetector(
+              onTap: onDelete,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, top: 2),
+                child: Icon(Icons.close,
+                    size: 18, color: theme.colorScheme.outline),
+              ),
             ),
           ),
         ],
