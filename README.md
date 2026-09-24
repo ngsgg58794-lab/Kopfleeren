@@ -62,7 +62,7 @@ flutter analyze && flutter test
   statt der unzuverlässigen Web Speech API)
 - `lib/screens/home_screen.dart` — UI: Erfassung, Mikrofon, gruppierte Liste,
   Erledigt-Bereich
-- `lib/main.dart` — Theme (an die Web-Version angelehnte Farben, Fraunces +
+- `lib/main.dart` — Theme (Meeresblau/Weiß, Schrift Inter
   Inter via `google_fonts`)
 
 ## Bekannte Lücken
