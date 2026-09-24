@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Kopf im Profil, nach rechts schauend -->
+  <path d="M430 760 L430 690 C360 660 318 596 318 516 C318 406 406 322 520 322 C626 322 706 398 706 498 L706 510 L746 580 C752 592 746 602 732 602 L706 602 L706 650 C706 676 686 694 660 694 L610 694 L610 760 Z"
+        fill="none" stroke="#F4F2EA" stroke-width="34" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Haken im Kopf -->
+  <path d="M430 512 L492 574 L604 450" fill="none" stroke="#F4F2EA" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Gedanken, die den Kopf verlassen -->
+  <circle cx="612" cy="262" r="22" fill="#F4F2EA"/>
+  <circle cx="680" cy="206" r="16" fill="#F4F2EA" opacity="0.8"/>
+  <circle cx="734" cy="162" r="11" fill="#F4F2EA" opacity="0.6"/>
+</svg>
