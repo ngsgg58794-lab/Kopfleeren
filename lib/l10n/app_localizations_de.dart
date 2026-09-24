@@ -78,4 +78,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get categoryOther => 'Sonstiges';
+
+  @override
+  String get info => 'Info';
+
+  @override
+  String get privacyPolicy => 'Datenschutz';
+
+  @override
+  String get support => 'Support';
+
+  @override
+  String get legalNotice => 'Impressum';
+
+  @override
+  String get licenses => 'Lizenzen';
 }

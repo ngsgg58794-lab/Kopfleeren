@@ -27,32 +27,42 @@ Keywords wiederholen bewusst weder Name noch Untertitel (zählt Apple ohnehin).
 Stand des Codes: Aufgaben liegen nur lokal (`shared_preferences`), kein Konto,
 kein Analytics, kein eigener Server.
 
-**Apple „App-Datenschutz“:** „Keine Daten erfasst“ ist vertretbar, **wenn** die Schriften
-gebündelt werden (siehe unten). Spracherkennung läuft über Apples eigenen Dienst
-und zählt nicht als Erhebung durch dich.
+**Apple „App-Datenschutz“:** „Keine Daten erfasst“. Die App lädt nichts aus dem Netz
+(Schrift Inter ist gebündelt), Spracherkennung läuft über Apples eigenen Dienst und zählt
+nicht als Erhebung durch dich.
 
 **Google Play „Datensicherheit“:**
 - Daten erhoben: Keine
 - Daten geteilt: Keine
-- Hinweis Audio: Spracheingabe wird vom Android-Spracherkennungsdienst verarbeitet,
-  nicht von der App gespeichert oder übertragen
-- Daten während der Übertragung verschlüsselt: Ja (nur Schrift-Download)
-- Löschen möglich: Ja (App deinstallieren bzw. Einträge löschen)
+- Hinweis Audio: Spracheingabe verarbeitet der Android-Spracherkennungsdienst,
+  die App speichert oder überträgt nichts
+- Löschen möglich: Ja (Einträge löschen bzw. App deinstallieren)
 
-**Offener Punkt – `google_fonts`:** lädt Inter beim ersten Start von Google-Servern
-(IP-Adresse geht an Google). Für saubere „keine Daten“-Angaben und DSGVO:
-Inter als Asset bündeln und `GoogleFonts.config.allowRuntimeFetching = false` setzen.
+## Links & Kontakt
 
-**Datenschutzerklärung:** Pflicht in beiden Stores (öffentliche URL). Entwurf siehe
-`fastlane/privacy-policy.md` – vor Veröffentlichung Kontaktdaten ergänzen und
-rechtlich prüfen lassen.
+Die Seiten liegen in `docs/` und laufen über GitHub Pages (einmalig aktivieren, s. README):
+
+| Feld | Wert |
+|---|---|
+| Support-URL | https://ngsgg58794-lab.github.io/Kopfleeren/ |
+| Datenschutz-URL | https://ngsgg58794-lab.github.io/Kopfleeren/privacy.html |
+| Impressum | https://ngsgg58794-lab.github.io/Kopfleeren/impressum.html |
+| Kontakt-E-Mail | mail@juliawimmer.de |
+| Copyright (App Store) | 2026 Julia Wimmer |
+
+In der App: Info-Symbol → Datenschutz / Support / Impressum / Lizenzen
+(Apple verlangt den Datenschutz-Link auch in der App).
+
+EU-Händlerstatus (Apple DSA-Abfrage / Play „Händler“): Wer die App kommerziell anbietet
+(auch später mit Käufen), muss sich als Händler angeben – dann zeigen die Stores Name,
+Anschrift und E-Mail öffentlich an.
 
 ## Screenshots
 
-Pflichtgrößen: iPhone 6,9" (1320×2868) – Apple skaliert für kleinere Geräte;
-iPad nur, wenn iPad unterstützt wird (Flutter-Standard: ja → 13" 2064×2752 nötig,
-alternativ iPad in Xcode abschalten). Play: mind. 2 Handy-Screenshots, dazu
-Feature-Grafik 1024×500.
+Pflichtgröße App Store: iPhone 6,9" (1320×2868, z. B. Simulator „iPhone 16 Pro Max“).
+Die App ist nur fürs iPhone freigegeben → keine iPad-Screenshots nötig. Achtung: Apple
+testet iPhone-Apps trotzdem auf dem iPad im Kompatibilitätsmodus – dort muss sie laufen.
+Play: mind. 2 Handy-Screenshots (z. B. 1080×1920), dazu Feature-Grafik 1024×500.
 
 Vorschlag (je DE + EN, mit kurzer Überschrift über dem Screenshot):
 1. Gefüllte Liste nach Kategorien – „Kopf frei in Sekunden“ / „A clear mind in seconds“
@@ -63,7 +73,4 @@ Vorschlag (je DE + EN, mit kurzer Überschrift über dem Screenshot):
 
 ## Weitere Pflichtfelder
 
-- Support-URL (App Store) und Kontakt-E-Mail (beide Stores)
-- Datenschutz-URL
-- App Store: Copyright-Zeile, z. B. „2026 <Dein Name>“
 - Play: Zielgruppe (nicht für Kinder unter 13 → einfacher), App-Zugriff „keine Anmeldung nötig“

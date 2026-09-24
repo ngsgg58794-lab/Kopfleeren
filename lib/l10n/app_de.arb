@@ -20,5 +20,10 @@
   "categoryHousehold": "Haushalt",
   "categoryWork": "Arbeit",
   "categoryAdmin": "Behörden & Papierkram",
-  "categoryOther": "Sonstiges"
+  "categoryOther": "Sonstiges",
+  "info": "Info",
+  "privacyPolicy": "Datenschutz",
+  "support": "Support",
+  "legalNotice": "Impressum",
+  "licenses": "Lizenzen"
 }

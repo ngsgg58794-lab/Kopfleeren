@@ -1,6 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
@@ -8,6 +9,11 @@ import 'services/locale_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Inter ist gebündelt (assets/fonts) – kein Laden von Google-Servern.
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('assets/fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['Inter'], license);
+  });
   final localeController = LocaleController();
   await localeController.load();
   runApp(CalmdropApp(localeController: localeController));
@@ -67,14 +73,16 @@ class CalmdropApp extends StatelessWidget {
       outline: outline,
     );
 
-    final headlineFont = GoogleFonts.inter(
+    const headlineFont = TextStyle(
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w600,
       letterSpacing: -0.4,
     );
-    final bodyFont = GoogleFonts.inter();
+    const bodyFont = TextStyle(fontFamily: 'Inter');
 
     return ThemeData(
       brightness: brightness,
+      fontFamily: 'Inter',
       scaffoldBackgroundColor: bg,
       colorScheme: colorScheme,
       dividerColor: divider,

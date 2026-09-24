@@ -22,5 +22,10 @@
   "categoryHousehold": "Household",
   "categoryWork": "Work",
   "categoryAdmin": "Paperwork & admin",
-  "categoryOther": "Other"
+  "categoryOther": "Other",
+  "info": "Info",
+  "privacyPolicy": "Privacy policy",
+  "support": "Support",
+  "legalNotice": "Legal notice",
+  "licenses": "Licenses"
 }

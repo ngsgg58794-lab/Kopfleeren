@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../l10n/app_localizations.dart';
 import '../models/task.dart';
 import '../services/categorizer.dart';
@@ -140,6 +141,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     child: Text(l10n.appTitle,
                         style: theme.textTheme.headlineMedium),
+                  ),
+                  IconButton(
+                    tooltip: l10n.info,
+                    icon: Icon(Icons.info_outline,
+                        color: theme.colorScheme.outline),
+                    onPressed: _showInfo,
                   ),
                   IconButton(
                     tooltip: l10n.language,
@@ -360,6 +367,52 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pop(context);
                 },
               ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static const _website = 'https://ngsgg58794-lab.github.io/Kopfleeren/';
+
+  void _showInfo() {
+    final l10n = AppLocalizations.of(context);
+    final lang =
+        Localizations.localeOf(context).languageCode == 'de' ? '#de' : '#en';
+
+    Widget link(IconData icon, String label, String page) => ListTile(
+          leading: Icon(icon),
+          title: Text(label),
+          trailing: const Icon(Icons.open_in_new, size: 18),
+          onTap: () => launchUrl(
+            Uri.parse('$_website$page$lang'),
+            mode: LaunchMode.externalApplication,
+          ),
+        );
+
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            link(
+                Icons.privacy_tip_outlined, l10n.privacyPolicy, 'privacy.html'),
+            link(Icons.help_outline, l10n.support, 'index.html'),
+            link(Icons.gavel_outlined, l10n.legalNotice, 'impressum.html'),
+            ListTile(
+              leading: const Icon(Icons.description_outlined),
+              title: Text(l10n.licenses),
+              onTap: () {
+                Navigator.pop(context);
+                showLicensePage(
+                  context: this.context,
+                  applicationName: l10n.appTitle,
+                  applicationLegalese: '© 2026 Julia Wimmer',
+                );
+              },
+            ),
           ],
         ),
       ),

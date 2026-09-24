@@ -48,11 +48,9 @@ flutter analyze && flutter test
    Build: `flutter build appbundle` → `build/app/outputs/bundle/release/app-release.aab`
 3. **iOS-Signing:** `ios/Runner.xcworkspace` in Xcode öffnen, Team unter
    *Signing & Capabilities* wählen. Build: `flutter build ipa` → Upload per Transporter/Xcode.
-4. **Datenschutzerklärung (Pflicht in beiden Stores):** muss erwähnen, dass
-   - Spracheingaben zur Erkennung an Apple bzw. Google übertragen werden können,
-   - `google_fonts` die Schriften zur Laufzeit von Google-Servern lädt (IP-Übertragung,
-     DSGVO-relevant). Alternative: Fonts als Assets bündeln und
-     `GoogleFonts.config.allowRuntimeFetching = false` setzen.
+4. **Website (Support, Datenschutz, Impressum) einschalten:** GitHub → Repo *Settings → Pages*
+   → *Deploy from a branch* → Branch mit dem Ordner `/docs` wählen → *Save*.
+   Danach erreichbar unter https://ngsgg58794-lab.github.io/Kopfleeren/
 5. **Store-Angaben:** Play „Datensicherheit“ + Apple „App-Datenschutz“ (Audio-Daten),
    Screenshots, Altersfreigabe-Fragebogen. Texte, Datenschutz-Antworten und
    Screenshot-Plan: `fastlane/STORE.md`.
@@ -79,8 +77,8 @@ Systemsprache / Deutsch / English, wird gespeichert).
   statt der unzuverlässigen Web Speech API)
 - `lib/screens/home_screen.dart` — UI: Erfassung, Mikrofon, gruppierte Liste,
   Erledigt-Bereich
-- `lib/main.dart` — Theme (Meeresblau/Weiß, Schrift Inter
-  Inter via `google_fonts`)
+- `lib/main.dart` — Theme (Meeresblau/Weiß, Schrift Inter,
+  gebündelt in `assets/fonts`, kein Nachladen aus dem Netz)
 
 ## Bekannte Lücken
 

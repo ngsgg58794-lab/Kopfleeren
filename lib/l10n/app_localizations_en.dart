@@ -78,4 +78,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get categoryOther => 'Other';
+
+  @override
+  String get info => 'Info';
+
+  @override
+  String get privacyPolicy => 'Privacy policy';
+
+  @override
+  String get support => 'Support';
+
+  @override
+  String get legalNotice => 'Legal notice';
+
+  @override
+  String get licenses => 'Licenses';
 }
