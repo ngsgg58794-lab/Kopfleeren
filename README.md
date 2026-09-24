@@ -54,7 +54,8 @@ flutter analyze && flutter test
      DSGVO-relevant). Alternative: Fonts als Assets bündeln und
      `GoogleFonts.config.allowRuntimeFetching = false` setzen.
 5. **Store-Angaben:** Play „Datensicherheit“ + Apple „App-Datenschutz“ (Audio-Daten),
-   Screenshots, Beschreibung, Altersfreigabe-Fragebogen.
+   Screenshots, Altersfreigabe-Fragebogen. Texte, Datenschutz-Antworten und
+   Screenshot-Plan: `fastlane/STORE.md`.
 6. Version in `pubspec.yaml` (`version: 1.0.0+1`) vor jedem Upload erhöhen.
 
 ## Sprachen
