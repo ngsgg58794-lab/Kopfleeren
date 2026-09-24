@@ -70,4 +70,4 @@ flutter analyze && flutter test
 - Kein Undo beim Löschen einer Aufgabe
 - Kein Haptic-Feedback beim Abhaken
 - Keine iCloud/Cloud-Synchronisation — Daten liegen nur lokal auf dem Gerät
-- Splash-Screen ist noch der Flutter-Standard (weißer Hintergrund)
+- Nativer Splash ist statisch (iOS erlaubt keine Animation); animiert wird danach in `lib/screens/splash_screen.dart`

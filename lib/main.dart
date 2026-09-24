@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() => runApp(const KopfLeerenApp());
 
@@ -15,7 +16,7 @@ class KopfLeerenApp extends StatelessWidget {
       theme: _buildTheme(Brightness.light),
       darkTheme: _buildTheme(Brightness.dark),
       themeMode: ThemeMode.system,
-      home: const HomeScreen(),
+      home: const SplashScreen(next: HomeScreen()),
     );
   }
 
