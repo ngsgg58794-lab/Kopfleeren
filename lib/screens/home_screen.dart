@@ -149,6 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          // Wischen in der Liste schließt die Tastatur.
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,6 +238,9 @@ class _HomeScreenState extends State<HomeScreen> {
           TextField(
             controller: _controller,
             focusNode: _focusNode,
+            // Mehrzeilig: Return macht einen Zeilenumbruch. Tippen außerhalb
+            // schließt die Tastatur (sonst gibt es auf iOS keinen Weg dazu).
+            onTapOutside: (_) => _focusNode.unfocus(),
             minLines: 3,
             maxLines: 6,
             style: theme.textTheme.bodyMedium,

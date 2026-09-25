@@ -68,4 +68,22 @@ void main() {
       expect(tasks.where((t) => t.done), hasLength(2));
     }
   });
+
+  testWidgets('Tastatur schließt bei Tippen außerhalb des Eingabefelds',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({'app_locale': 'de'});
+    final controller = LocaleController();
+    await controller.load();
+    await tester.pumpWidget(CalmdropApp(localeController: controller));
+    await tester.pump(const Duration(seconds: 3)); // Splash
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(TextField));
+    await tester.pump();
+    expect(tester.testTextInput.isVisible, isTrue);
+
+    await tester.tapAt(const Offset(20, 500)); // außerhalb des Felds
+    await tester.pump();
+    expect(tester.testTextInput.isVisible, isFalse);
+  });
 }
