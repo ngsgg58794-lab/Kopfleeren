@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../l10n/app_localizations.dart';
 import '../models/task.dart';
 import '../services/categorizer.dart';
+import '../services/demo_data.dart';
 import '../services/storage_service.dart';
 import '../services/locale_controller.dart';
 import '../services/speech_service.dart';
@@ -26,19 +27,35 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _doneCollapsed = true;
   bool _listening = false;
   String _baseText = '';
+  String? _demoLanguage;
 
   @override
   void initState() {
     super.initState();
-    _load();
+    if (!demoMode) _load();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Demo: Beispiele folgen der App-Sprache.
+    final lang = Localizations.localeOf(context).languageCode;
+    if (demoMode && lang != _demoLanguage) {
+      _demoLanguage = lang;
+      _tasks = demoTasks(lang);
+    }
   }
 
   Future<void> _load() async {
     final tasks = await _storage.load();
+    if (!mounted) return;
     setState(() => _tasks = tasks);
   }
 
-  Future<void> _save() => _storage.save(_tasks);
+  Future<void> _save() async {
+    if (demoMode) return; // echte Daten nie überschreiben
+    await _storage.save(_tasks);
+  }
 
   void _addTasksFromText(String text) {
     final lines =

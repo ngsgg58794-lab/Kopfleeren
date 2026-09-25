@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:calmdrop/main.dart';
 import 'package:calmdrop/services/categorizer.dart';
+import 'package:calmdrop/services/demo_data.dart';
 import 'package:calmdrop/services/locale_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,5 +55,17 @@ void main() {
     expect(find.text('Add'), findsOneWidget);
     final prefs = await SharedPreferences.getInstance();
     expect(prefs.getString('app_locale'), 'en');
+  });
+
+  test('Demo-Daten decken alle Kategorien ab (DE + EN)', () {
+    for (final lang in ['de', 'en']) {
+      final tasks = demoTasks(lang);
+      expect(
+        tasks.where((t) => !t.done).map((t) => t.category).toSet(),
+        {'termine', 'familie', 'haushalt', 'arbeit', 'admin', 'sonstiges'},
+        reason: lang,
+      );
+      expect(tasks.where((t) => t.done), hasLength(2));
+    }
   });
 }

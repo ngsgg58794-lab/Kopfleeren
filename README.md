@@ -11,6 +11,9 @@ und App-Icon sind eingetragen.
 flutter pub get
 flutter run
 flutter analyze && flutter test
+
+# Screenshots: Beispiel-Einträge in der App-Sprache, speichert nichts
+flutter run --dart-define=DEMO=true
 ```
 
 ## Bereits erledigt
