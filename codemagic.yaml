@@ -20,8 +20,6 @@ workflows:
         script: xcode-project use-profiles
       - name: Flutter-Pakete
         script: flutter pub get
-      - name: CocoaPods
-        script: cd ios && pod install
       - name: Analyse und Tests
         script: flutter analyze && flutter test
       - name: IPA bauen
