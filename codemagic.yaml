@@ -1,0 +1,38 @@
+# Cloud-Build für iOS (App Store / TestFlight) – Einrichtung: CODEMAGIC.md
+# Startet nur manuell (keine automatischen Trigger konfiguriert).
+workflows:
+  ios-release:
+    name: iOS → TestFlight
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    integrations:
+      # Name des App-Store-Connect-API-Keys in Codemagic (Team → Integrations)
+      app_store_connect: calmdrop-asc
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: de.juliawimmer.calmdrop
+    scripts:
+      - name: Signing-Profile ins Xcode-Projekt übernehmen
+        script: xcode-project use-profiles
+      - name: Flutter-Pakete
+        script: flutter pub get
+      - name: CocoaPods
+        script: cd ios && pod install
+      - name: Analyse und Tests
+        script: flutter analyze && flutter test
+      - name: IPA bauen
+        script: |
+          flutter build ipa --release \
+            --build-number=$BUILD_NUMBER \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
