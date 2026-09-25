@@ -13,23 +13,10 @@
 - [ ] „Calmdrop“ in App Store Connect und Play Console anlegen/reservieren
 - [ ] Markenrecherche DPMA/EUIPO
 
-## 3. Screenshots
-**iPhone (Mac mit Xcode):**
-1. `open -a Simulator` → *File → Open Simulator → iPhone 16 Pro Max* (Pflichtgröße 6,9")
-2. Im Projektordner: `flutter run --dart-define=DEMO=true`
-   (Demo-Modus: Beispiel-Einträge in der App-Sprache, speichert nichts)
-3. Warten, bis der Splash durch ist
-4. **⌘ + S** → Bild liegt auf dem Schreibtisch
-5. Sprache in der App umstellen (Übersetzen-Symbol) → dieselben Bilder auf Englisch
-6. Dunkelmodus: **⇧⌘A**
-
-**Android (Android Studio):**
-1. *Device Manager* → Pixel 8 anlegen, starten, `flutter run --dart-define=DEMO=true`
-2. Kamera-Symbol im Emulator-Menü. Mind. 2 Bilder + Feature-Grafik 1024×500
-
-**Echtes iPhone:** Pro Max oder Plus → Seitentaste + Lauter
-
-**Optik:** Previewed oder AppMockUp – Überschriften stehen in `fastlane/STORE.md`
+## 3. Screenshots ✅
+Fertig in `fastlane/screenshots/` (App Store) und `fastlane/metadata/android/*/images/`
+(Play inkl. Feature-Grafik + 512er-Icon). Neu erzeugen: `tool/store_screenshots/README.md`.
+- [ ] Optional: vor dem Upload einmal durchsehen
 
 ## 4. Signieren & hochladen
 - [ ] Android: Upload-Keystore + `android/key.properties` (siehe README), `flutter build appbundle`
