@@ -114,7 +114,11 @@ for lang, ios_dir, play_dir in [('de', 'de-DE', 'de-DE'), ('en', 'en-US', 'en-US
         else:
             status_bar(screen, dark)
         title, sub = texts[lang]
-        compose(1320, 2868, screen, title, sub, dark, 0.80, 0.20).save(f'{ios_out}/{i}_{scene}.png')
+        ios = compose(1320, 2868, screen, title, sub, dark, 0.80, 0.20)
+        ios.save(f'{ios_out}/{i}_{scene}.png')  # iPhone 6,9"
+        # iPhone 6,5" (1284x2778): auf Breite skalieren, unten abschneiden (Handy ist dort angeschnitten)
+        small = ios.resize((1284, round(2868 * 1284 / 1320)), Image.LANCZOS).crop((0, 0, 1284, 2778))
+        small.save(f'{ios_out}/{i}_{scene}_6.5.png')
         compose(1080, 1920, screen, title, sub, dark, 0.66, 0.22).save(f'{play_out}/{i}_{scene}.png')
 
 # Play: Feature-Grafik 1024x500 + Icon 512x512
