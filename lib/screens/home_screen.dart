@@ -7,6 +7,7 @@ import '../services/demo_data.dart';
 import '../services/storage_service.dart';
 import '../services/locale_controller.dart';
 import '../services/speech_service.dart';
+import '../services/transcript_builder.dart';
 import '../widgets/task_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Task> _tasks = [];
   bool _doneCollapsed = true;
   bool _listening = false;
-  String _baseText = '';
+  TranscriptBuilder? _transcript;
   String? _demoLanguage;
 
   @override
@@ -94,8 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-    _baseText = _controller.text.trim();
-    if (_baseText.isNotEmpty) _baseText += '\n';
+    final transcript = _transcript = TranscriptBuilder(_controller.text);
 
     setState(() => _listening = true);
 
@@ -112,12 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         onResult: (text, isFinal) {
-          if (isFinal) {
-            _baseText += text.isEmpty ? '' : '$text\n';
-            _controller.text = _baseText;
-          } else {
-            _controller.text = _baseText + text;
-          }
+          if (!identical(transcript, _transcript)) return; // alte Sitzung
+          transcript.add(text, isFinal: isFinal);
+          _controller.text = transcript.text;
           _controller.selection =
               TextSelection.collapsed(offset: _controller.text.length);
           if (!mounted) return;

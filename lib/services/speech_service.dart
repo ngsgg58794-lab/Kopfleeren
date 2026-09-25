@@ -51,6 +51,8 @@ class SpeechService {
         pauseFor: const Duration(seconds: 4),
         partialResults: true,
         cancelOnError: true,
+        // iOS 16+: Satzzeichen, damit mehrere Gedanken getrennt werden können.
+        autoPunctuation: true,
       ),
     );
     return true;
