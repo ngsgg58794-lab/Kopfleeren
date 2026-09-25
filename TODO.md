@@ -1,7 +1,7 @@
 # Offene Schritte bis zum Store-Upload
 
-## 1. Website einschalten (2 Min.)
-- [ ] GitHub → Repo → *Settings → Pages* → *Deploy from a branch*
+## 1. Website einschalten ✅
+- [x] GitHub → Repo → *Settings → Pages* → *Deploy from a branch*
       → Branch `claude/app-store-playstore-prep-drupfr`, Ordner `/docs` → *Save*
 - [ ] Nach ein paar Minuten prüfen:
   - Support: https://ngsgg58794-lab.github.io/Kopfleeren/
@@ -10,6 +10,7 @@
 - [ ] Datenschutzerklärung rechtlich prüfen lassen (Entwurf, keine Rechtsberatung)
 
 ## 2. Name sichern
+- Bundle-ID: `de.juliawimmer.calmdrop` (`com.calmdrop.app` war bei Apple schon vergeben)
 - [ ] „Calmdrop“ in App Store Connect und Play Console anlegen/reservieren
 - [ ] Markenrecherche DPMA/EUIPO
 

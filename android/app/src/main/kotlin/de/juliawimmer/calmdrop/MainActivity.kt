@@ -1,4 +1,4 @@
-package com.calmdrop.app
+package de.juliawimmer.calmdrop
 
 import io.flutter.embedding.android.FlutterActivity
 

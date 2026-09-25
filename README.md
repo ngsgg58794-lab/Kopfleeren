@@ -35,7 +35,7 @@ flutter run --dart-define=DEMO=true
 1. **Name + Bundle-ID sichern:** „Calmdrop“ in App Store Connect und Play Console
    reservieren (Namen müssen im App Store eindeutig sein). Markenrecherche (DPMA/EUIPO)
    ist Pflicht: „MindWave“ ist ein eingeführter Produktname von NeuroSky (EEG-Headsets).
-   Bundle-/Application-ID: `com.calmdrop.app` – nach dem ersten Upload nicht mehr änderbar.
+   Bundle-/Application-ID: `de.juliawimmer.calmdrop` – nach dem ersten Upload nicht mehr änderbar.
    Store-Untertitel (max. 30 Zeichen): DE „Finde deine innere Ruhe“, EN „Find your inner calm“.
 2. **Android-Signing:** Upload-Keystore erzeugen
    ```
