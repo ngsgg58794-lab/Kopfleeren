@@ -21,6 +21,7 @@ Fertig in `fastlane/screenshots/` (App Store) und `fastlane/metadata/android/*/i
 
 ## 4. Signieren & hochladen
 - [ ] Android: Upload-Keystore + `android/key.properties` (siehe README), `flutter build appbundle`
-- [ ] iOS ohne Xcode: Cloud-Build über Codemagic, Anleitung in `CODEMAGIC.md`
+- [x] iOS ohne Xcode: Cloud-Build über Codemagic, Anleitung in `CODEMAGIC.md` (erster Build ok)
+- [ ] TestFlight auf dem iPhone testen, dann Build in Version 1.0 wählen und einreichen
       (alternativ mit Xcode: Team wählen, `flutter build ipa`, Upload per Transporter)
 - [ ] Texte aus `fastlane/metadata/` und Datenschutz-Antworten aus `fastlane/STORE.md` eintragen
