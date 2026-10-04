@@ -36,7 +36,7 @@ struct NameGate: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Text("PLUTOKRAT").font(.system(size: 34, weight: .black, design: .serif)).foregroundStyle(Gold.gradient)
+            Text("CROESUS").font(.system(size: 34, weight: .black, design: .serif)).foregroundStyle(Gold.gradient)
             Text("Wie dürfen wir Sie ansprechen?").foregroundStyle(.secondary)
             TextField("Name", text: $input)
                 .textFieldStyle(.roundedBorder)
@@ -93,7 +93,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .navigationTitle("Plutokrat")
+            .navigationTitle("Croesus")
             .navigationDestination(for: Screen.self) { destination($0) }
         }
         .tint(Gold.base)
@@ -124,7 +124,7 @@ struct ShareCard<Content: View>: View {
             content()
             if let image {
                 ShareLink(item: Image(uiImage: image),
-                          preview: SharePreview("Plutokrat", image: Image(uiImage: image))) {
+                          preview: SharePreview("Croesus", image: Image(uiImage: image))) {
                     Label("Angeben", systemImage: "square.and.arrow.up")
                 }
                 .buttonStyle(.borderedProminent)

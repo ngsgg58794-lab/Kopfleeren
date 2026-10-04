@@ -64,7 +64,7 @@ workflows:
       - build/app/outputs/bundle/release/*.aab
 
   plutokrat-screenshots:
-    name: Plutokrat → Simulator-Screenshots
+    name: Croesus → Simulator-Screenshots
     max_build_duration: 30
     instance_type: mac_mini_m2
     working_directory: Plutokrat
@@ -110,7 +110,7 @@ workflows:
       - Plutokrat/build.log
 
   plutokrat-release:
-    name: Plutokrat → TestFlight
+    name: Croesus → TestFlight
     max_build_duration: 45
     instance_type: mac_mini_m2
     working_directory: Plutokrat
@@ -120,7 +120,7 @@ workflows:
       xcode: latest
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: de.juliawimmer.plutokrat
+        bundle_identifier: de.juliawimmer.croesus
     scripts:
       - name: Projekt erzeugen
         script: |

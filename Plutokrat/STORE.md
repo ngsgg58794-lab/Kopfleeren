@@ -1,12 +1,12 @@
-# App-Store-Texte Plutokrat
+# App-Store-Texte Croesus
 
-**Kategorie:** Unterhaltung · **Preis:** Tier ≈ 99,99 € · **Alter:** 4+ · **Bundle-ID:** de.juliawimmer.plutokrat
+**Kategorie:** Unterhaltung · **Preis:** Tier ≈ 99,99 € · **Alter:** 4+ · **Bundle-ID:** de.juliawimmer.croesus
 
 ## DE
-**Name:** Plutokrat
-**Untertitel:** Satire für Wohlhabende
+**Name:** Croesus
+**Untertitel:** Reich wie Krösus
 **Beschreibung:**
-Plutokrat ist eine Spaß-App ohne praktischen Nutzen. Sie kostet 100 €, und genau das ist der Witz.
+Croesus ist eine Spaß-App ohne praktischen Nutzen. Sie kostet 100 €, und genau das ist der Witz.
 • Zertifikat mit Seriennummer, als Bild teilbar
 • Vermögens-Ticker: Was du verdienst, während du zuschaust
 • Champagner: Korken knallen mit Haptik
@@ -19,10 +19,10 @@ Satire. Alle Figuren, Anrufe und Bordkarten sind erfunden.
 **Review-Hinweise:** Satirical novelty app with interactive features (certificate, ticker, haptic champagne, butler with text orders, scheduled fictional call screens via local notifications, boarding-pass generator, wage calculator). The price is intentional. No login, no data collection.
 
 ## EN
-**Name:** Plutokrat
+**Name:** Croesus
 **Subtitle:** Satire for the well-off
 **Description:**
-Plutokrat is a joke app with no practical use. It costs €100, and that is the joke.
+Croesus is a joke app with no practical use. It costs €100, and that is the joke.
 • Certificate with serial number, shareable as image
 • Wealth ticker: what you earn while you watch
 • Champagne: pop the cork with haptics

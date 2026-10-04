@@ -1,4 +1,4 @@
-# Plutokrat
+# Croesus
 
 Statussymbol-App (SwiftUI, iOS 17+). Kostenpflichtig, 100 € (Preis in App Store Connect einstellen, keine Zahlungslogik im Code).
 
