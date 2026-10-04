@@ -108,3 +108,34 @@ workflows:
     artifacts:
       - Plutokrat/screenshots/*.png
       - Plutokrat/build.log
+
+  plutokrat-release:
+    name: Plutokrat → TestFlight
+    max_build_duration: 45
+    instance_type: mac_mini_m2
+    working_directory: Plutokrat
+    integrations:
+      app_store_connect: calmdrop-asc
+    environment:
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: de.juliawimmer.plutokrat
+    scripts:
+      - name: Projekt erzeugen
+        script: |
+          brew install xcodegen
+          xcodegen
+      - name: Signing-Profile übernehmen
+        script: xcode-project use-profiles
+      - name: IPA bauen
+        script: |
+          xcode-project build-ipa \
+            --project Plutokrat.xcodeproj --scheme Plutokrat \
+            --archive-flags="CURRENT_PROJECT_VERSION=$BUILD_NUMBER"
+    artifacts:
+      - Plutokrat/build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
