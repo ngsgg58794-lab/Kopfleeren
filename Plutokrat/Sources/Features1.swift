@@ -101,30 +101,131 @@ struct ChampagneView: View {
 // MARK: - Butler
 
 struct ButlerView: View {
-    private static let lines = [
+    @AppStorage("name") private var name = "Sir"
+
+    private static let general = [
         "Ihr Wagen ist vorgefahren. Der andere auch.",
-        "Den Preis habe ich nicht nachgesehen, Sir.",
+        "Den Preis habe ich nicht nachgesehen, %@.",
         "Ihr Kontostand wurde nicht geprüft. Aus Prinzip.",
         "Der Helikopter steht bereit. Das Ziel ist noch unbekannt.",
         "Ich habe Ihren Kalender geleert. Vorsichtshalber auch den von morgen.",
         "Die Yacht war zu klein. Eine größere ist bestellt.",
         "Ich habe Ihre Anrufe gefiltert. Alle.",
         "Ihnen war langweilig. Es wurde eine Insel gekauft.",
-        "Ihr Frühstück ist serviert. Es kostet mehr als Ihr Gast verdient.",
-        "Sir, das Wort „Budget“ wurde aus dem Haushalt entfernt."
+        "Das Wort „Budget“ wurde aus dem Haushalt entfernt.",
+        "%@, Ihr Nachbar hat eine neue Villa. Ihr Nachbar hat jetzt keinen Nachbarn mehr.",
+        "Ich habe die Rechnung nicht gelesen. Der Steuerberater hat geweint.",
+        "Der Preis war ein Tippfehler. Ich habe den Hersteller gekauft, damit er nicht korrigiert.",
+        "Die Warteschlange wurde aufgelöst. Der Laden gehört jetzt Ihnen.",
+        "Ihr Hund hat einen eigenen Jet. Er hat sich bedankt.",
+        "Das Restaurant war ausgebucht. Es ist jetzt umgebaut, nur für Sie.",
+        "Ich habe Ihre Schwäche für Schnäppchen behandeln lassen. Es war teuer.",
+        "Die Zeitung hat Ihren Namen falsch geschrieben. Die Zeitung gehört jetzt Ihnen.",
+        "Wetter? Wird nach Ihren Wünschen eingekauft.",
+        "Der Pool war zu kalt. Das Meer wird angerufen.",
+        "Sie wollten Ruhe. Das Dorf wurde evakuiert.",
+        "%@, das Geld arbeitet. Sie müssen es nicht auch.",
+        "Ihre Kreditkarte ist verwirrt. Sie hat noch nie ein Limit gesehen.",
+        "Der Lieferant bittet um Zahlung. Ich habe ihn gekauft.",
+        "Ich habe den Stau abgesagt.",
     ]
-    @State private var line = "Sie haben geläutet, Sir?"
+    private static let morning = [
+        "Guten Morgen, %@. Ihr Frühstück ist serviert. Es kostet mehr als das Tablett.",
+        "Der Kaffee ist 40 Jahre gereift. Genau wie Ihr Vermögen.",
+        "Die Sonne ist pünktlich aufgegangen. Ich habe nachgefragt.",
+        "Ihr Terminkalender: nichts. Das ist teurer als es klingt.",
+        "Die Zeitung wurde gebügelt. Die Börsenseite wurde entfernt, aus Respekt vor den Verlierern.",
+    ]
+    private static let day = [
+        "Mittagszeit. Der Koch fliegt gerade ein. Der Käse braucht noch zwei Stunden.",
+        "Ein Termin wurde abgesagt, weil er nicht in Ihr Gefühl passte.",
+        "Ihr Anwalt bittet um Rückruf. Ich habe ihn gefeuert und neu eingestellt. Dasselbe Büro.",
+        "Die Aktienkurse? Ich habe sie freundlich gebeten, zu steigen.",
+    ]
+    private static let evening = [
+        "Guten Abend, %@. Der Champagner atmet. Der Sommelier auch.",
+        "Das Abendessen wartet. Der Küchenchef wartet auch. Beide gegen Bezahlung.",
+        "Ihr Smoking ist gebügelt. Der andere auch. Für spontane Anlässe.",
+        "Die Oper wurde auf Ihre Ankunft verschoben. Das Publikum wurde informiert.",
+        "Der Kamin brennt. Das Holz stammt aus einem Wald, den Sie nicht kennen.",
+        "Ein Konzert wurde verlegt, weil Sie nicht rechtzeitig kommen konnten.",
+    ]
+    private static let night = [
+        "%@, es ist spät. Ich habe die Nacht um eine Stunde verlängert.",
+        "Ihr Schlaf wurde kostenpflichtig optimiert.",
+        "Das Hauspersonal schläft nicht. Es hat keine Genehmigung dazu.",
+        "Der Mond wurde nicht bezahlt. Ich kümmere mich morgen darum.",
+        "Gute Nacht. Der Wecker klingelt, wenn Sie es sagen. Nicht früher.",
+    ]
+    private static let extras = [
+        "ein Team von zwölf Personen beauftragt",
+        "der Hersteller gekauft",
+        "ein Gutachter entlassen, weil er nach dem Preis fragte",
+        "eine zweite Version bestellt, falls die erste Ihnen nicht gefällt",
+        "ein Hubschrauber vorsorglich losgeschickt",
+        "der Zeitplan abgeschafft",
+        "ein Experte aus Zürich eingeflogen, der niemandem etwas sagen darf",
+        "das Wetter vorsichtshalber informiert",
+    ]
+
+    @State private var shown = "Sie haben geläutet?"
+    @State private var last = ""
+    @State private var typing: Task<Void, Never>?
+    @State private var wish = ""
 
     var body: some View {
-        VStack(spacing: 32) {
-            Text("🤵").font(.system(size: 90))
-            Text(line).font(.system(.title3, design: .serif)).multilineTextAlignment(.center).padding(.horizontal)
-            Button("Butler rufen") {
-                line = Self.lines.filter { $0 != line }.randomElement()!
-                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-            }.buttonStyle(.borderedProminent)
+        ScrollView {
+            VStack(spacing: 28) {
+                Text("🤵").font(.system(size: 90)).padding(.top, 24)
+                Text(shown).font(.system(.title3, design: .serif)).multilineTextAlignment(.center)
+                    .frame(minHeight: 110, alignment: .top).padding(.horizontal)
+                Button("Butler rufen") { say(pick()) }.buttonStyle(.borderedProminent)
+                Divider().padding(.horizontal)
+                VStack(spacing: 12) {
+                    Text("Auftrag erteilen").font(.headline)
+                    TextField("Was wünschen Sie?", text: $wish).textFieldStyle(.roundedBorder)
+                    Button("Erteilen") { order() }.buttonStyle(.bordered)
+                        .disabled(wish.trimmingCharacters(in: .whitespaces).isEmpty)
+                }.padding(.horizontal)
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .scrollDismissesKeyboard(.interactively)
         .navigationTitle("Butler")
+        .onAppear { shown = "Sie haben geläutet, \(name)?" }
+    }
+
+    private func pick() -> String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        let timed: [String]
+        switch hour {
+        case 5..<11: timed = Self.morning
+        case 11..<17: timed = Self.day
+        case 17..<22: timed = Self.evening
+        default: timed = Self.night
+        }
+        let pool = (Self.general + timed).filter { $0 != last }
+        let raw = pool.randomElement() ?? Self.general[0]
+        last = raw
+        return raw.replacingOccurrences(of: "%@", with: name)
+    }
+
+    private func order() {
+        let w = wish.trimmingCharacters(in: .whitespaces)
+        wish = ""
+        let extra = Self.extras.randomElement()!
+        say("Selbstverständlich, \(name). „\(w)“ wird erledigt. Dafür wurde bereits \(extra).")
+    }
+
+    @MainActor private func say(_ text: String) {
+        typing?.cancel()
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        shown = ""
+        typing = Task {
+            for ch in text {
+                if Task.isCancelled { return }
+                shown.append(ch)
+                try? await Task.sleep(for: .milliseconds(25))
+            }
+        }
     }
 }

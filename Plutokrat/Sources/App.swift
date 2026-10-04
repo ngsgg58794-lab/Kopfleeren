@@ -51,6 +51,7 @@ struct NameGate: View {
 
 struct HomeView: View {
     let name: String
+    @ObservedObject private var calls = CallCenter.shared
 
     var body: some View {
         NavigationStack {
@@ -61,13 +62,14 @@ struct HomeView: View {
                     row("Champagner", "wineglass", ChampagneView())
                     row("Butler", "bell", ButlerView())
                     row("Privatjet-Bordkarte", "airplane", BoardingPassView(name: name))
-                    row("Anruf vom Yachtkapitän", "phone", FakeCallView())
+                    row("Anrufe", "phone", FakeCallView())
                     row("Plebs-Rechner", "person.3", PeasantView())
                 }
             }
             .navigationTitle("Plutokrat")
         }
         .tint(Gold.base)
+        .fullScreenCover(item: $calls.incoming) { c in CallScreen(caller: c) { calls.incoming = nil } }
     }
 
     private func row<V: View>(_ title: String, _ icon: String, _ dest: V) -> some View {

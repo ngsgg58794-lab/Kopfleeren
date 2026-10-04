@@ -10,7 +10,7 @@ cd Plutokrat && xcodegen && open Plutokrat.xcodeproj
 Bundle-ID in `project.yml` anpassen. **Nicht auf Linux kompiliert/getestet.**
 
 ## Funktionen
-Zertifikat (teilbar), Vermögens-Ticker, Champagner (Haptik), Butler, Privatjet-Bordkarte (teilbar), Anruf vom Yachtkapitän (Text, 5 s Verzögerung), Plebs-Rechner.
+Zertifikat (teilbar), Vermögens-Ticker, Champagner (Haptik), Butler, Privatjet-Bordkarte (teilbar), Anrufe von 6 Figuren (Kapitän, Pilot, Banker, Koch, Makler, Chauffeur), Zeitpunkt wählbar (Verzögerung oder Uhrzeit), Mitteilung bei geschlossener App; Butler mit ~40 Sprüchen, Tageszeit, Auftragsfunktion, Plebs-Rechner.
 
 ## App-Review-Hinweise
 - Preis: Tier ≈ 99,99 € (Apple-Tiers erlauben keine exakt 100,00 €).
