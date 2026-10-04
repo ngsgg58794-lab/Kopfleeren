@@ -34,3 +34,31 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
+
+  android-release:
+    name: Android → AAB (Play Store)
+    max_build_duration: 60
+    instance_type: linux_x2
+    environment:
+      flutter: stable
+      java: 17
+      android_signing:
+        # Name des Keystores in Codemagic (Team → Code signing identities → Android)
+        - calmdrop_upload
+    scripts:
+      - name: key.properties aus Codemagic-Keystore erzeugen
+        script: |
+          cat > android/key.properties <<KEYEOF
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyPassword=$CM_KEY_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          storeFile=$CM_KEYSTORE_PATH
+          KEYEOF
+      - name: Flutter-Pakete
+        script: flutter pub get
+      - name: Analyse und Tests
+        script: flutter analyze && flutter test
+      - name: AAB bauen
+        script: flutter build appbundle --release --build-number=$BUILD_NUMBER
+    artifacts:
+      - build/app/outputs/bundle/release/*.aab
