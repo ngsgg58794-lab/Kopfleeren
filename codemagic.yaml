@@ -62,3 +62,49 @@ workflows:
         script: flutter build appbundle --release --build-number=$BUILD_NUMBER
     artifacts:
       - build/app/outputs/bundle/release/*.aab
+
+  plutokrat-screenshots:
+    name: Plutokrat → Simulator-Screenshots
+    max_build_duration: 30
+    instance_type: mac_mini_m2
+    working_directory: Plutokrat
+    environment:
+      xcode: latest
+    scripts:
+      - name: Projekt erzeugen
+        script: |
+          brew install xcodegen
+          xcodegen
+      - name: Simulator wählen (größtes iPhone = 6,9"-Screenshots)
+        script: |
+          UDID=$(xcrun simctl list devices available | grep -E "iPhone .* Pro Max" | tail -1 | grep -oE "[0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12}")
+          echo "UDID=$UDID" >> $CM_ENV
+          xcrun simctl boot "$UDID"
+          xcrun simctl status_bar "$UDID" override --time 9:41 --batteryState charged --batteryLevel 100 --cellularBars 4 --wifiBars 3
+      - name: Bauen (Simulator, ohne Signing)
+        script: |
+          xcodebuild -project Plutokrat.xcodeproj -scheme Plutokrat \
+            -destination "id=$UDID" -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO build | tee build.log | tail -40
+          test ${PIPESTATUS[0]} -eq 0
+      - name: Screenshots aufnehmen
+        script: |
+          APP=build/Build/Products/Debug-iphonesimulator/Plutokrat.app
+          BID=$(/usr/libexec/PlistBuddy -c "Print CFBundleIdentifier" "$APP/Info.plist")
+          xcrun simctl install "$UDID" "$APP"
+          mkdir -p screenshots
+          shot() { # Name, Launch-Argumente...
+            local n=$1; shift
+            xcrun simctl terminate "$UDID" "$BID" 2>/dev/null || true
+            xcrun simctl launch "$UDID" "$BID" "$@"
+            sleep 4
+            xcrun simctl io "$UDID" screenshot "screenshots/$n.png"
+          }
+          shot 01_start -name ""
+          shot 02_menue -name Maximilian
+          for s in certificate ticker champagne butler boarding calls peasant; do
+            shot "03_$s" -name Maximilian -startScreen $s
+          done
+    artifacts:
+      - Plutokrat/screenshots/*.png
+      - Plutokrat/build.log

@@ -49,31 +49,67 @@ struct NameGate: View {
     }
 }
 
+enum Screen: String, Hashable, CaseIterable {
+    case certificate, ticker, champagne, butler, boarding, calls, peasant
+
+    var title: String {
+        switch self {
+        case .certificate: "Zertifikat"
+        case .ticker: "Vermögens-Ticker"
+        case .champagne: "Champagner"
+        case .butler: "Butler"
+        case .boarding: "Privatjet-Bordkarte"
+        case .calls: "Anrufe"
+        case .peasant: "Plebs-Rechner"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .certificate: "rosette"
+        case .ticker: "eurosign.circle"
+        case .champagne: "wineglass"
+        case .butler: "bell"
+        case .boarding: "airplane"
+        case .calls: "phone"
+        case .peasant: "person.3"
+        }
+    }
+}
+
 struct HomeView: View {
     let name: String
     @ObservedObject private var calls = CallCenter.shared
+    // Launch-Argument `-startScreen <name>` öffnet direkt einen Screen (für automatische Screenshots).
+    @State private var path: [Screen] = UserDefaults.standard.string(forKey: "startScreen")
+        .flatMap(Screen.init(rawValue:)).map { [$0] } ?? []
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 Section("Guten Tag, \(name)") {
-                    row("Zertifikat", "rosette", CertificateView(name: name))
-                    row("Vermögens-Ticker", "eurosign.circle", TickerView())
-                    row("Champagner", "wineglass", ChampagneView())
-                    row("Butler", "bell", ButlerView())
-                    row("Privatjet-Bordkarte", "airplane", BoardingPassView(name: name))
-                    row("Anrufe", "phone", FakeCallView())
-                    row("Plebs-Rechner", "person.3", PeasantView())
+                    ForEach(Screen.allCases, id: \.self) { s in
+                        NavigationLink(value: s) { Label(s.title, systemImage: s.icon) }
+                    }
                 }
             }
             .navigationTitle("Plutokrat")
+            .navigationDestination(for: Screen.self) { destination($0) }
         }
         .tint(Gold.base)
         .fullScreenCover(item: $calls.incoming) { c in CallScreen(caller: c) { calls.incoming = nil } }
     }
 
-    private func row<V: View>(_ title: String, _ icon: String, _ dest: V) -> some View {
-        NavigationLink { dest } label: { Label(title, systemImage: icon) }
+    @ViewBuilder private func destination(_ s: Screen) -> some View {
+        switch s {
+        case .certificate: CertificateView(name: name)
+        case .ticker: TickerView()
+        case .champagne: ChampagneView()
+        case .butler: ButlerView()
+        case .boarding: BoardingPassView(name: name)
+        case .calls: FakeCallView()
+        case .peasant: PeasantView()
+        }
     }
 }
 

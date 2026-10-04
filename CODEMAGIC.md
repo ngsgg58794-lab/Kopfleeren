@@ -29,3 +29,8 @@ Zertifikat und Provisioning-Profil erzeugt Codemagic automatisch über den API-K
 
 ## Wenn etwas schiefgeht
 Im Build-Log den roten Schritt öffnen und die Fehlermeldung an Claude schicken.
+
+## Plutokrat: Simulator-Screenshots (kein Signing nötig)
+Workflow **Plutokrat → Simulator-Screenshots** baut die App (`Plutokrat/`) für den iPhone-Pro-Max-Simulator
+und legt 9 PNGs (6,9"-Größe) unter **Artifacts** ab. Kein API-Key, keine Zertifikate.
+Der erste Lauf zeigt auch, ob der Swift-Code kompiliert. Bei Fehlern: `build.log` aus den Artifacts an Claude schicken.
