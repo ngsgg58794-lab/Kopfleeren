@@ -135,9 +135,12 @@ workflows:
           xcode-project build-ipa \
             --project Plutokrat.xcodeproj --scheme Plutokrat \
             --archive-flags="CURRENT_PROJECT_VERSION=$BUILD_NUMBER"
+      - name: IPA zu App Store Connect hochladen
+        script: |
+          IPA=$(find "$CM_BUILD_DIR" -name "*.ipa" -not -path "*/node_modules/*" | head -1)
+          echo "Gefundene IPA: $IPA"
+          test -n "$IPA" || { echo "Keine IPA gefunden"; exit 1; }
+          app-store-connect publish --path "$IPA"
     artifacts:
       - Plutokrat/build/ios/ipa/*.ipa
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: true
+      - build/ios/ipa/*.ipa
