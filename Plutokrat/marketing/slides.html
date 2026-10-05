@@ -29,20 +29,41 @@ p.sub{position:absolute;top:610px;left:110px;right:110px;text-align:center;font:
 <g id=gem><polygon points="30,70 62,30 138,30 170,70" fill=#f6d77a /><polygon points="62,30 100,70 138,30" fill=#fff1b8 /><polygon points="30,70 100,70 62,30" fill=#e0b445 /><polygon points="170,70 100,70 138,30" fill=#c8962c /><polygon points="30,70 100,170 70,70" fill=#c8962c /><polygon points="70,70 100,170 130,70" fill=#e8c05a /><polygon points="130,70 100,170 170,70" fill=#a87420 /><polygon points="30,70 170,70 100,170" fill=none stroke=#fff6cf stroke-opacity=.5 /></g>
 </defs></svg>
 <script>
-var S=[
- ['Proof you paid<br>for nothing','A gold certificate with your name on it',[[ 'coin',-40,1000,230,-18,0],['gem',1010,1560,260,12,1],['coin',1085,985,150,24,1]]],
- ['Watch your<br>wealth grow','Your income, ticking every second',[['coin',1105,1020,240,16,0],['coin',-60,1500,200,-22,0],['gem',40,1020,170,-14,1]]],
- ['Pop it.<br>Feel it.','Champagne with real haptics',[['gem',-30,1060,260,-12,1],['coin',1115,1400,220,20,0],['coin',60,1700,130,10,1]]],
- ['Your butler<br>awaits','40+ lines, plus orders on request',[['coin',1120,1040,200,18,0],['gem',-40,1500,230,-16,0],['coin',1100,1650,120,-10,1]]],
- ['Fly private.<br>Sort of.','A fictional boarding pass to share',[['gem',1110,1060,230,14,0],['coin',-50,1180,220,-20,0],['coin',1090,1700,140,12,1]]],
- ['Your captain<br>is calling','Fictional calls at a time you choose',[['coin',-40,1020,210,-16,0],['gem',1115,1450,250,12,0],['coin',60,1750,120,14,1]]]];
+var LANG=new URLSearchParams(location.search).get('lang')||'en';
+var DECO=[
+ [['coin',-40,1000,230,-18,0],['gem',1110,1560,260,12,1],['coin',1085,985,150,24,1]],
+ [['coin',1105,1020,240,16,0],['coin',-60,1500,200,-22,0],['gem',40,1020,170,-14,1]],
+ [['gem',-30,1060,260,-12,1],['coin',1115,1400,220,20,0],['coin',60,1700,130,10,1]],
+ [['coin',1120,1040,200,18,0],['gem',-40,1500,230,-16,0],['coin',1100,1650,120,-10,1]],
+ [['gem',1110,1060,230,14,0],['coin',-50,1180,220,-20,0],['coin',1090,1700,140,12,1]],
+ [['coin',-40,1020,210,-16,0],['gem',1115,1450,250,12,0],['coin',60,1750,120,14,1]],
+ [['coin',1110,1000,220,18,0],['gem',-40,1480,240,-14,0],['coin',1100,1700,130,-12,1]],
+ [['gem',-30,1040,230,-12,0],['coin',1115,1420,230,20,0],['coin',70,1720,130,10,1]]];
+var TXT={
+ en:[['Seven ways<br>to show off','Pure status. Zero use.'],
+     ['Proof you paid<br>for nothing','A gold certificate with your name on it'],
+     ['Watch your<br>wealth grow','Your income, ticking every second'],
+     ['Pop it.<br>Feel it.','Champagne with real haptics'],
+     ['Your butler<br>awaits','40+ lines, plus orders on request'],
+     ['Fly private.<br>Sort of.','A fictional boarding pass to share'],
+     ['Your captain<br>is calling','Fictional calls at a time you choose'],
+     ['Count the<br>working hours','Minimum-wage hours for any price']],
+ de:[['Stolz bezahlt<br>für nichts','Goldenes Zertifikat mit deinem Namen'],
+     ['Sieh dein Geld<br>wachsen','Dein Einkommen, jede Sekunde'],
+     ['Kork knallt.<br>Du spürst es.','Champagner mit echter Haptik'],
+     ['Dein Butler<br>wartet','40+ Sprüche, dazu Aufträge'],
+     ['Privat fliegen.<br>Fast.','Eine fiktive Bordkarte zum Teilen'],
+     ['Der Kapitän<br>ruft an','Fiktive Anrufe zur Wunschzeit'],
+     ['Zähl die<br>Arbeitsstunden','Mindestlohn-Stunden für jeden Preis']]};
+var OFF=LANG==='de'?1:0; // de hat kein Menü-Bild
+var S=TXT[LANG].map(function(t,i){return [t[0],t[1],DECO[i+OFF]]});
 var seed=7;function r(){seed=(seed*16807)%2147483647;return seed/2147483647}
 S.forEach(function(s,i){
  var d=document.createElement('div');d.className='slide';d.dataset.n=i+1;
  var dust='';for(var k=0;k<90;k++){var sz=2+r()*8;dust+='<div class=dust style="left:'+(r()*1290)+'px;top:'+(r()*2796)+'px;width:'+sz+'px;height:'+sz+'px;opacity:'+(.15+r()*.6)+';filter:blur('+(sz>7?3:0)+'px)"></div>'}
  var deco='';s[2].forEach(function(o){var z=o[5]?7:3;deco+='<svg class=deco style="left:'+o[1]+'px;top:'+o[2]+'px;width:'+o[3]+'px;height:'+o[3]+'px;transform:rotate('+o[4]+'deg);z-index:'+z+'" viewBox="0 0 200 200"><use href="#'+o[0]+'"/></svg>'});
  d.innerHTML='<div class=rays></div>'+dust+'<div class=brand>CROESUS</div><h1>'+s[0]+'</h1><p class=sub>'+s[1]+'</p>'+deco+
- '<div class=dev><span class=btnl style="top:330px;height:110px"></span><span class=btnl style="top:480px;height:170px"></span><span class=btnl style="top:680px;height:170px"></span><span class=btnr></span><div class=bez><div class=isl></div><img src="shots/'+(i+1)+'.png"></div><div class=glass></div></div>';
+ '<div class=dev><span class=btnl style="top:330px;height:110px"></span><span class=btnl style="top:480px;height:170px"></span><span class=btnl style="top:680px;height:170px"></span><span class=btnr></span><div class=bez><div class=isl></div><img src="shots/'+LANG+'/'+(i+1)+'.png"></div><div class=glass></div></div>';
  document.body.appendChild(d)});
 var n=new URLSearchParams(location.search).get('n');document.querySelector('.slide[data-n="'+n+'"]').style.display='block';
 </script>
