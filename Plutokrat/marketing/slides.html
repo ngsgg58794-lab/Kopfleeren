@@ -1,20 +1,48 @@
-<!doctype html><meta charset=utf-8><style>
-*{box-sizing:border-box;margin:0}html,body{background:#0a0907}
-.slide{display:none;width:1290px;height:2796px;position:relative;overflow:hidden;font-family:Georgia,'DejaVu Serif',serif;color:#fff;
- background:radial-gradient(circle at 50% 30%,#3a2e14 0%,#14100a 55%,#050403 100%)}
-.slide:before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% 62%,transparent 0 120px,rgba(212,166,51,.07) 121px 123px)}
-h1{position:absolute;top:170px;left:90px;right:90px;text-align:center;font-size:136px;line-height:1.05;font-weight:700;
- background:linear-gradient(135deg,#fde080,#d4a633 55%,#996b1a);-webkit-background-clip:text;color:transparent}
-p{position:absolute;top:560px;left:120px;right:120px;text-align:center;font:400 54px -apple-system,Helvetica,Arial,sans-serif;color:#d9d2c3}
-.dev{position:absolute;left:145px;top:760px;width:1000px;height:2200px;background:#000;border-radius:150px;padding:26px;
- box-shadow:0 0 0 4px #4a3b17,0 60px 140px rgba(0,0,0,.8),0 0 260px rgba(212,166,51,.25)}
-.dev img{width:100%;height:100%;border-radius:126px;display:block}
+<!doctype html><meta charset=utf-8><link rel=stylesheet href=fonts/fonts.css><style>
+*{box-sizing:border-box;margin:0}html,body{background:#050403}
+.slide{display:none;width:1290px;height:2796px;position:relative;overflow:hidden;color:#fff;font-family:'Inter',Helvetica,sans-serif;
+ background:radial-gradient(ellipse 1100px 1500px at 50% 62%,rgba(212,166,51,.34),rgba(212,166,51,.08) 55%,transparent 75%),radial-gradient(ellipse at 50% 0%,#241b0c,#070605 60%)}
+.rays{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 62%,rgba(240,200,90,.07) 0 3deg,transparent 3deg 13deg);
+ -webkit-mask-image:radial-gradient(ellipse 1300px 1700px at 50% 62%,#000 0,transparent 72%)}
+.brand{position:absolute;top:118px;left:0;right:0;text-align:center;font-weight:600;font-size:46px;letter-spacing:.55em;color:#c9a84f;padding-left:.55em}
+.brand:before,.brand:after{content:"◆";font-size:24px;vertical-align:middle;margin:0 28px;opacity:.8}
+h1{position:absolute;top:235px;left:70px;right:70px;text-align:center;font:800 164px/1.04 'Playfair Display',Georgia,serif;letter-spacing:-2px;
+ background:linear-gradient(170deg,#fff3c4 0%,#f0cd62 38%,#c8962c 70%,#f3d77f 100%);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 10px 36px rgba(212,166,51,.35))}
+p.sub{position:absolute;top:610px;left:110px;right:110px;text-align:center;font:500 58px/1.3 'Inter',sans-serif;color:#eadfc4}
+.dev{position:absolute;left:135px;top:800px;width:1020px;padding:14px;border-radius:176px;z-index:5;
+ background:linear-gradient(140deg,#f6e7b4 0%,#b58f3f 22%,#7a5a22 42%,#e9d28b 56%,#8a6a2b 78%,#d9bd70 100%);
+ box-shadow:0 0 0 2px #3a2a0c,0 70px 150px rgba(0,0,0,.85),0 0 300px rgba(212,166,51,.28)}
+.bez{background:#000;border-radius:162px;padding:22px;position:relative}
+.bez img{width:100%;display:block;border-radius:140px}
+.isl{position:absolute;top:50px;left:50%;width:300px;height:88px;margin-left:-150px;background:#000;border-radius:44px;box-shadow:inset 0 0 0 2px #111}
+.glass{position:absolute;inset:14px;border-radius:162px;background:linear-gradient(112deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 32%);pointer-events:none;z-index:6}
+.btnl{position:absolute;left:-12px;width:14px;border-radius:8px 0 0 8px;background:linear-gradient(90deg,#6e5120,#d9bd70)}
+.btnr{position:absolute;right:-12px;width:14px;height:230px;top:520px;border-radius:0 8px 8px 0;background:linear-gradient(270deg,#6e5120,#d9bd70)}
+.deco{position:absolute;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+.dust{position:absolute;border-radius:50%;background:#f3d77f}
 </style>
 <body>
-<div class=slide data-n=1><h1>Proof you paid for nothing</h1><p>A gold certificate with your name on it</p><div class=dev><img src="shots/1.png"></div></div>
-<div class=slide data-n=2><h1>Watch the money roll in</h1><p>Your income, ticking every second</p><div class=dev><img src="shots/2.png"></div></div>
-<div class=slide data-n=3><h1>Pop it. Feel it.</h1><p>Champagne with real haptics</p><div class=dev><img src="shots/3.png"></div></div>
-<div class=slide data-n=4><h1>Your butler awaits</h1><p>40+ lines, plus orders on request</p><div class=dev><img src="shots/4.png"></div></div>
-<div class=slide data-n=5><h1>Fly private. Sort of.</h1><p>A fictional boarding pass to share</p><div class=dev><img src="shots/5.png"></div></div>
-<div class=slide data-n=6><h1>Your captain is calling</h1><p>Fictional calls at a time you choose</p><div class=dev><img src="shots/6.png"></div></div>
-<script>var n=new URLSearchParams(location.search).get('n');document.querySelector('.slide[data-n="'+n+'"]').style.display='block'</script>
+<svg width=0 height=0 style="position:absolute"><defs>
+<linearGradient id=cg x1=0 y1=0 x2=1 y2=1><stop offset=0 stop-color=#fff0b0 /><stop offset=.45 stop-color=#d4a633 /><stop offset=1 stop-color=#7a5214 /></linearGradient>
+<linearGradient id=cg2 x1=1 y1=0 x2=0 y2=1><stop offset=0 stop-color=#fff0b0 /><stop offset=.5 stop-color=#c8962c /><stop offset=1 stop-color=#6e4a10 /></linearGradient>
+<g id=coin><circle cx=100 cy=100 r=96 fill=url(#cg) /><circle cx=100 cy=100 r=80 fill=url(#cg2) /><circle cx=100 cy=100 r=80 fill=none stroke=#fff3c0 stroke-opacity=.6 stroke-width=3 /><text x=100 y=132 text-anchor=middle font-family="Playfair Display" font-weight=800 font-size=96 fill=#7a5214 fill-opacity=.9>€</text></g>
+<g id=gem><polygon points="30,70 62,30 138,30 170,70" fill=#f6d77a /><polygon points="62,30 100,70 138,30" fill=#fff1b8 /><polygon points="30,70 100,70 62,30" fill=#e0b445 /><polygon points="170,70 100,70 138,30" fill=#c8962c /><polygon points="30,70 100,170 70,70" fill=#c8962c /><polygon points="70,70 100,170 130,70" fill=#e8c05a /><polygon points="130,70 100,170 170,70" fill=#a87420 /><polygon points="30,70 170,70 100,170" fill=none stroke=#fff6cf stroke-opacity=.5 /></g>
+</defs></svg>
+<script>
+var S=[
+ ['Proof you paid<br>for nothing','A gold certificate with your name on it',[[ 'coin',-40,1000,230,-18,0],['gem',1010,1560,260,12,1],['coin',1085,985,150,24,1]]],
+ ['Watch your<br>wealth grow','Your income, ticking every second',[['coin',1105,1020,240,16,0],['coin',-60,1500,200,-22,0],['gem',40,1020,170,-14,1]]],
+ ['Pop it.<br>Feel it.','Champagne with real haptics',[['gem',-30,1060,260,-12,1],['coin',1115,1400,220,20,0],['coin',60,1700,130,10,1]]],
+ ['Your butler<br>awaits','40+ lines, plus orders on request',[['coin',1120,1040,200,18,0],['gem',-40,1500,230,-16,0],['coin',1100,1650,120,-10,1]]],
+ ['Fly private.<br>Sort of.','A fictional boarding pass to share',[['gem',1110,1060,230,14,0],['coin',-50,1180,220,-20,0],['coin',1090,1700,140,12,1]]],
+ ['Your captain<br>is calling','Fictional calls at a time you choose',[['coin',-40,1020,210,-16,0],['gem',1115,1450,250,12,0],['coin',60,1750,120,14,1]]]];
+var seed=7;function r(){seed=(seed*16807)%2147483647;return seed/2147483647}
+S.forEach(function(s,i){
+ var d=document.createElement('div');d.className='slide';d.dataset.n=i+1;
+ var dust='';for(var k=0;k<90;k++){var sz=2+r()*8;dust+='<div class=dust style="left:'+(r()*1290)+'px;top:'+(r()*2796)+'px;width:'+sz+'px;height:'+sz+'px;opacity:'+(.15+r()*.6)+';filter:blur('+(sz>7?3:0)+'px)"></div>'}
+ var deco='';s[2].forEach(function(o){var z=o[5]?7:3;deco+='<svg class=deco style="left:'+o[1]+'px;top:'+o[2]+'px;width:'+o[3]+'px;height:'+o[3]+'px;transform:rotate('+o[4]+'deg);z-index:'+z+'" viewBox="0 0 200 200"><use href="#'+o[0]+'"/></svg>'});
+ d.innerHTML='<div class=rays></div>'+dust+'<div class=brand>CROESUS</div><h1>'+s[0]+'</h1><p class=sub>'+s[1]+'</p>'+deco+
+ '<div class=dev><span class=btnl style="top:330px;height:110px"></span><span class=btnl style="top:480px;height:170px"></span><span class=btnl style="top:680px;height:170px"></span><span class=btnr></span><div class=bez><div class=isl></div><img src="shots/'+(i+1)+'.png"></div><div class=glass></div></div>';
+ document.body.appendChild(d)});
+var n=new URLSearchParams(location.search).get('n');document.querySelector('.slide[data-n="'+n+'"]').style.display='block';
+</script>
