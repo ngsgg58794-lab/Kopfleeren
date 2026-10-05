@@ -37,12 +37,12 @@ struct NameGate: View {
     var body: some View {
         VStack(spacing: 24) {
             Text("CROESUS").font(.system(size: 34, weight: .black, design: .serif)).foregroundStyle(Gold.gradient)
-            Text("Wie dürfen wir Sie ansprechen?").foregroundStyle(.secondary)
+            Text("How may we address you?").foregroundStyle(.secondary)
             TextField("Name", text: $input)
                 .textFieldStyle(.roundedBorder)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 48)
-            Button("Eintreten") { name = input.trimmingCharacters(in: .whitespaces) }
+            Button("Enter") { name = input.trimmingCharacters(in: .whitespaces) }
                 .buttonStyle(.borderedProminent).tint(Gold.base)
                 .disabled(input.trimmingCharacters(in: .whitespaces).isEmpty)
         }
@@ -52,15 +52,15 @@ struct NameGate: View {
 enum Screen: String, Hashable, CaseIterable {
     case certificate, ticker, champagne, butler, boarding, calls, peasant
 
-    var title: String {
+    var title: LocalizedStringKey {
         switch self {
-        case .certificate: "Zertifikat"
-        case .ticker: "Vermögens-Ticker"
-        case .champagne: "Champagner"
+        case .certificate: "Certificate"
+        case .ticker: "Wealth Ticker"
+        case .champagne: "Champagne"
         case .butler: "Butler"
-        case .boarding: "Privatjet-Bordkarte"
-        case .calls: "Anrufe"
-        case .peasant: "Plebs-Rechner"
+        case .boarding: "Private Jet Boarding Pass"
+        case .calls: "Calls"
+        case .peasant: "Peasant Calculator"
         }
     }
 
@@ -87,7 +87,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack(path: $path) {
             List {
-                Section("Guten Tag, \(name)") {
+                Section("Good day, \(name)") {
                     ForEach(Screen.allCases, id: \.self) { s in
                         NavigationLink(value: s) { Label(s.title, systemImage: s.icon) }
                     }
@@ -125,7 +125,7 @@ struct ShareCard<Content: View>: View {
             if let image {
                 ShareLink(item: Image(uiImage: image),
                           preview: SharePreview("Croesus", image: Image(uiImage: image))) {
-                    Label("Angeben", systemImage: "square.and.arrow.up")
+                    Label("Show off", systemImage: "square.and.arrow.up")
                 }
                 .buttonStyle(.borderedProminent)
             }

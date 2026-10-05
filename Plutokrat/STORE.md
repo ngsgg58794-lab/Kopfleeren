@@ -1,5 +1,7 @@
 # App-Store-Texte Croesus
 
+**Primärsprache in App Store Connect: English (U.S.)**, Deutsch als zusätzliche Lokalisierung. Die App selbst ist Englisch (Basis) + Deutsch (`Sources/de.lproj/Localizable.strings`). Screenshots: `en_*.png` für Englisch, `de_*.png` für Deutsch (Codemagic-Workflow).
+
 **Kategorie:** Unterhaltung · **Preis:** Tier ≈ 99,99 € · **Alter:** 4+ · **Bundle-ID:** de.juliawimmer.croesus
 
 ## DE

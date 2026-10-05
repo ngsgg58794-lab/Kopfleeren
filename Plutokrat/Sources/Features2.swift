@@ -8,7 +8,7 @@ struct BoardingPassView: View {
     @State private var from = "Sylt"
     @State private var to = "Monaco"
     @State private var aircraft = "Gulfstream G700"
-    private let aircrafts = ["Gulfstream G700", "Bombardier Global 8000", "Airbus ACJ320", "Boeing BBJ 747-8", "Mein Helikopter"]
+    private let aircrafts = ["Gulfstream G700", "Bombardier Global 8000", "Airbus ACJ320", "Boeing BBJ 747-8", "My helicopter"]
 
     var body: some View {
         ScrollView {
@@ -21,32 +21,32 @@ struct BoardingPassView: View {
                     }
                     Text(name.uppercased()).font(.title2.weight(.bold))
                     HStack {
-                        VStack(alignment: .leading) { Text("VON").font(.caption2); Text(from).font(.title.weight(.heavy)) }
+                        VStack(alignment: .leading) { Text("FROM").font(.caption2); Text(from).font(.title.weight(.heavy)) }
                         Spacer()
-                        VStack(alignment: .trailing) { Text("NACH").font(.caption2); Text(to).font(.title.weight(.heavy)) }
+                        VStack(alignment: .trailing) { Text("TO").font(.caption2); Text(to).font(.title.weight(.heavy)) }
                     }
                     HStack(spacing: 24) {
-                        info("FLUGZEUG", aircraft)
-                        info("SITZ", "1A")
-                        info("GATE", "Privat")
-                        info("ABFLUG", "Wann Sie wollen")
+                        info("AIRCRAFT", LocalizedStringKey(aircraft))
+                        info("SEAT", "1A")
+                        info("GATE", "Private")
+                        info("DEPARTURE", "Whenever you like")
                     }
-                    Text("Fiktive Bordkarte – nicht zum Fliegen geeignet.").font(.caption2).opacity(0.7)
+                    Text("Fictional boarding pass – not valid for travel.").font(.caption2).opacity(0.7)
                 }
                 .foregroundStyle(.black)
                 .padding(24)
                 .background(Gold.gradient, in: RoundedRectangle(cornerRadius: 18))
             }
             VStack(spacing: 12) {
-                TextField("Von", text: $from).textFieldStyle(.roundedBorder)
-                TextField("Nach", text: $to).textFieldStyle(.roundedBorder)
-                Picker("Flugzeug", selection: $aircraft) { ForEach(aircrafts, id: \.self) { Text($0) } }
+                TextField("From", text: $from).textFieldStyle(.roundedBorder)
+                TextField("To", text: $to).textFieldStyle(.roundedBorder)
+                Picker("Aircraft", selection: $aircraft) { ForEach(aircrafts, id: \.self) { Text(LocalizedStringKey($0)).tag($0) } }
             }.padding(.horizontal)
         }
-        .navigationTitle("Privatjet-Bordkarte")
+        .navigationTitle("Private Jet Boarding Pass")
     }
 
-    private func info(_ title: String, _ value: String) -> some View {
+    private func info(_ title: LocalizedStringKey, _ value: LocalizedStringKey) -> some View {
         VStack(alignment: .leading) { Text(title).font(.caption2); Text(value).font(.footnote.weight(.semibold)) }
     }
 }
@@ -61,36 +61,36 @@ struct Caller: Identifiable, Hashable {
     let script: [String]
 
     static let all = [
-        Caller(id: "kapitaen", name: "Kapitän Hansen", subtitle: "Yacht Serenity", emoji: "⚓️", script: [
-            "Sir, wir liegen vor Capri. Der Hafen ist zu klein für die Yacht.",
-            "Ich habe den Hafen gekauft.",
-            "Wann dürfen wir mit Ihnen rechnen?",
-            "Verstanden. Die Yacht wartet."]),
+        Caller(id: "kapitaen", name: "Captain Hansen", subtitle: "Yacht Serenity", emoji: "⚓️", script: [
+            "Sir, we are anchored off Capri. The harbor is too small for the yacht.",
+            "I bought the harbor.",
+            "When may we expect you?",
+            "Understood. The yacht will wait."]),
         Caller(id: "pilot", name: "Pilot Weber", subtitle: "Gulfstream G700", emoji: "✈️", script: [
-            "Guten Tag. Wir haben Starterlaubnis. Wir hatten sie schon vor einer Stunde.",
-            "Der Flughafen wurde für Sie gesperrt. Er wusste es noch nicht.",
-            "Sagen Sie einfach, wohin. Wir fliegen dann dorthin.",
-            "Wir warten. Das Flugzeug wartet gern."]),
-        Caller(id: "banker", name: "Herr von Thurn", subtitle: "Privatbank", emoji: "🏦", script: [
-            "Ihr Vermögen ist so groß, dass wir einen Anbau brauchen.",
-            "Es gibt keine Bonitätsprüfung. Wir hätten Angst vor dem Ergebnis.",
-            "Ihre Bank bietet Ihnen an, Ihnen Geld zu schulden.",
-            "Wir verstehen. Ein schönes Wochenende."]),
-        Caller(id: "koch", name: "Küchenchef Philippe", subtitle: "Hausküche", emoji: "👨‍🍳", script: [
-            "Monsieur, der Trüffel ist da. Er kostet mehr als der Hubschrauber.",
-            "Ich habe das Menü auf sieben Gänge gekürzt. Es sind nur noch zwölf.",
-            "Wann essen wir? Ich frage nur für das Soufflé.",
-            "Sehr wohl. Das Soufflé fällt nicht in sich zusammen. Es wagt es nicht."]),
-        Caller(id: "makler", name: "Khalid", subtitle: "Immobilien Dubai", emoji: "🏙️", script: [
-            "Sir, ein Wolkenkratzer wird frei. Er heißt jetzt wie Sie.",
-            "Der 87. Stock ist noch frei. Die Stockwerke darüber gehören dem Wind.",
-            "Eine Unterschrift genügt. Auch ein Handzeichen.",
-            "Sehr gut. Ich lasse die Skyline kürzen, damit Sie die Aussicht haben."]),
-        Caller(id: "chauffeur", name: "Chauffeur Reinhard", subtitle: "Fuhrpark", emoji: "🚘", script: [
-            "Sir, der Wagen steht vor der Tür. Der zweite auch. Falls der erste zu langweilig ist.",
-            "Die Straße wurde gesperrt. Wir haben nur vergessen, es der Stadt zu sagen.",
-            "Ich hupe nicht. Ich warte lieber.",
-            "Zu Befehl. Der Motor läuft seit heute Morgen."]),
+            "Good day. We have clearance for takeoff. We had it an hour ago.",
+            "The airport has been closed for you. It does not know yet.",
+            "Just tell us where. We will fly there.",
+            "We will wait. The plane does not mind."]),
+        Caller(id: "banker", name: "Mr. von Thurn", subtitle: "Private bank", emoji: "🏦", script: [
+            "Your fortune is so large that we need an extension.",
+            "There is no credit check. We would be afraid of the result.",
+            "Your bank offers to owe you money.",
+            "We understand. Have a lovely weekend."]),
+        Caller(id: "koch", name: "Chef Philippe", subtitle: "Household kitchen", emoji: "👨‍🍳", script: [
+            "Monsieur, the truffle has arrived. It costs more than the helicopter.",
+            "I shortened the menu to seven courses. Only twelve are left.",
+            "When do we eat? I only ask for the soufflé.",
+            "Very well. The soufflé will not collapse. It would not dare."]),
+        Caller(id: "makler", name: "Khalid", subtitle: "Dubai Real Estate", emoji: "🏙️", script: [
+            "Sir, a skyscraper is becoming available. It is now named after you.",
+            "The 87th floor is still free. The floors above belong to the wind.",
+            "One signature will do. A nod will do too.",
+            "Excellent. I will have the skyline shortened so that you have the view."]),
+        Caller(id: "chauffeur", name: "Chauffeur Reinhard", subtitle: "Motor pool", emoji: "🚘", script: [
+            "Sir, the car is at the door. So is the second one, in case the first is too boring.",
+            "The street has been closed. We just forgot to tell the city.",
+            "I do not honk. I would rather wait.",
+            "At your command. The engine has been running since this morning."]),
     ]
 }
 
@@ -112,8 +112,8 @@ final class CallCenter: NSObject, ObservableObject, UNUserNotificationCenterDele
         let ok = (try? await center.requestAuthorization(options: [.alert, .sound])) ?? false
         if ok {
             let content = UNMutableNotificationContent()
-            content.title = caller.name
-            content.body = "Eingehender Anruf – \(caller.subtitle)"
+            content.title = NSLocalizedString(caller.name, comment: "")
+            content.body = String(format: NSLocalizedString("Incoming call – %@", comment: ""), NSLocalizedString(caller.subtitle, comment: ""))
             content.sound = .default
             content.userInfo = ["caller": caller.id]
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(seconds, 1), repeats: false)
@@ -159,21 +159,21 @@ struct FakeCallView: View {
     @State private var useClock = false
     @State private var clock = Date().addingTimeInterval(600)
 
-    private let presets: [(String, TimeInterval)] = [
-        ("5 Sek.", 5), ("30 Sek.", 30), ("1 Min.", 60), ("5 Min.", 300), ("15 Min.", 900), ("1 Std.", 3600)]
+    private let presets: [(LocalizedStringKey, TimeInterval)] = [
+        ("5 sec", 5), ("30 sec", 30), ("1 min", 60), ("5 min", 300), ("15 min", 900), ("1 hr", 3600)]
 
     var body: some View {
         Form {
-            Section("Wer ruft an?") {
-                Picker("Anrufer", selection: $caller) {
-                    ForEach(Caller.all) { Text("\($0.emoji) \($0.name)").tag($0) }
+            Section("Who is calling?") {
+                Picker("Caller", selection: $caller) {
+                    ForEach(Caller.all) { c in (Text("\(c.emoji) ") + Text(LocalizedStringKey(c.name))).tag(c) }
                 }
-                Text(caller.subtitle).font(.footnote).foregroundStyle(.secondary)
+                Text(LocalizedStringKey(caller.subtitle)).font(.footnote).foregroundStyle(.secondary)
             }
-            Section("Wann?") {
-                Toggle("Zu einer Uhrzeit", isOn: $useClock)
+            Section("When?") {
+                Toggle("At a specific time", isOn: $useClock)
                 if useClock {
-                    DatePicker("Uhrzeit", selection: $clock, displayedComponents: .hourAndMinute)
+                    DatePicker("Time", selection: $clock, displayedComponents: .hourAndMinute)
                 } else {
                     Picker("In", selection: $preset) {
                         ForEach(presets.indices, id: \.self) { Text(presets[$0].0).tag($0) }
@@ -182,16 +182,16 @@ struct FakeCallView: View {
             }
             Section {
                 if let at = center.pendingAt {
-                    Text("Anruf um \(at.formatted(date: .omitted, time: .standard))")
-                    Button("Abbrechen", role: .destructive) { center.cancel() }
+                    Text("Call at \(at.formatted(date: .omitted, time: .standard))")
+                    Button("Cancel", role: .destructive) { center.cancel() }
                 } else {
-                    Button("Anruf planen") { Task { await center.schedule(caller, after: delay()) } }
+                    Button("Schedule call") { Task { await center.schedule(caller, after: delay()) } }
                 }
             } footer: {
-                Text("Bei geschlossener App kommt eine Mitteilung; Tippen öffnet den Anruf. Reiner Text, kein echter Anruf.")
+                Text("If the app is closed, you get a notification; tap it to open the call. Text only, not a real call.")
             }
         }
-        .navigationTitle("Anrufe")
+        .navigationTitle("Calls")
     }
 
     private func delay() -> TimeInterval {
@@ -216,8 +216,8 @@ struct CallScreen: View {
         VStack(spacing: 30) {
             Spacer()
             Text(caller.emoji).font(.system(size: 70))
-            Text(caller.name).font(.largeTitle)
-            Text(answered ? caller.script[min(step, caller.script.count - 1)] : caller.subtitle)
+            Text(LocalizedStringKey(caller.name)).font(.largeTitle)
+            Text(LocalizedStringKey(answered ? caller.script[min(step, caller.script.count - 1)] : caller.subtitle))
                 .multilineTextAlignment(.center).padding(.horizontal)
             Spacer()
             HStack(spacing: 60) {
@@ -251,17 +251,17 @@ struct PeasantView: View {
 
     var body: some View {
         Form {
-            Section("Was kostet es?") {
-                TextField("Betrag in €", value: $amount, format: .number).keyboardType(.decimalPad)
+            Section("What does it cost?") {
+                TextField("Amount in €", value: $amount, format: .number).keyboardType(.decimalPad)
             }
-            Section("Ein Mindestlohn-Empfänger arbeitet dafür") {
+            Section("A minimum-wage worker works for") {
                 let hours = amount / minWage
-                Text(hours, format: .number.precision(.fractionLength(1))).font(.largeTitle.bold()) + Text(" Stunden")
-                Text("≈ \((hours / 8), format: .number.precision(.fractionLength(1))) Arbeitstage (brutto, ohne Miete)")
+                Text("\(hours, format: .number.precision(.fractionLength(1))) hours").font(.largeTitle.bold())
+                Text("≈ \((hours / 8), format: .number.precision(.fractionLength(1))) working days (gross, before rent)")
                     .font(.footnote).foregroundStyle(.secondary)
             }
-            Section { Text("Mindestlohn: 13,90 € pro Stunde (Deutschland, 2026).").font(.footnote) }
+            Section { Text("Minimum wage: €13.90 per hour (Germany, 2026).").font(.footnote) }
         }
-        .navigationTitle("Plebs-Rechner")
+        .navigationTitle("Peasant Calculator")
     }
 }

@@ -1,5 +1,6 @@
 name: Plutokrat
 options:
+  developmentLanguage: en
   bundleIdPrefix: com.example
   deploymentTarget:
     iOS: "17.0"

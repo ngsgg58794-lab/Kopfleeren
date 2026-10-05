@@ -93,17 +93,19 @@ workflows:
           BID=$(/usr/libexec/PlistBuddy -c "Print CFBundleIdentifier" "$APP/Info.plist")
           xcrun simctl install "$UDID" "$APP"
           mkdir -p screenshots
-          shot() { # Name, Launch-Argumente...
-            local n=$1; shift
+          shot() { # Sprache, Name, Launch-Argumente...
+            local lang=$1 n=$2; shift 2
             xcrun simctl terminate "$UDID" "$BID" 2>/dev/null || true
-            xcrun simctl launch "$UDID" "$BID" "$@"
+            xcrun simctl launch "$UDID" "$BID" -AppleLanguages "($lang)" -AppleLocale "${lang}_$( [ $lang = de ] && echo DE || echo US )" "$@"
             sleep 4
-            xcrun simctl io "$UDID" screenshot "screenshots/$n.png"
+            xcrun simctl io "$UDID" screenshot "screenshots/${lang}_$n.png"
           }
-          shot 01_start -name ""
-          shot 02_menue -name Maximilian
-          for s in certificate ticker champagne butler boarding calls peasant; do
-            shot "03_$s" -name Maximilian -startScreen $s
+          for lang in en de; do
+            shot $lang 01_start -name ""
+            shot $lang 02_menu -name Maximilian
+            for s in certificate ticker champagne butler boarding calls peasant; do
+              shot $lang "03_$s" -name Maximilian -startScreen $s
+            done
           done
     artifacts:
       - Plutokrat/screenshots/*.png

@@ -1,6 +1,6 @@
 # Croesus
 
-Statussymbol-App (SwiftUI, iOS 17+). Kostenpflichtig, 100 € (Preis in App Store Connect einstellen, keine Zahlungslogik im Code).
+Status-symbol app (SwiftUI, iOS 17+). UI: English (base) + German (`Sources/de.lproj`). Kostenpflichtig, 100 € (Preis in App Store Connect einstellen, keine Zahlungslogik im Code).
 
 ## Build (auf dem Mac)
 ```
