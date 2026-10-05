@@ -1,0 +1,20 @@
+<!doctype html><meta charset=utf-8><style>
+*{box-sizing:border-box;margin:0}html,body{background:#0a0907}
+.slide{display:none;width:1290px;height:2796px;position:relative;overflow:hidden;font-family:Georgia,'DejaVu Serif',serif;color:#fff;
+ background:radial-gradient(circle at 50% 30%,#3a2e14 0%,#14100a 55%,#050403 100%)}
+.slide:before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% 62%,transparent 0 120px,rgba(212,166,51,.07) 121px 123px)}
+h1{position:absolute;top:170px;left:90px;right:90px;text-align:center;font-size:136px;line-height:1.05;font-weight:700;
+ background:linear-gradient(135deg,#fde080,#d4a633 55%,#996b1a);-webkit-background-clip:text;color:transparent}
+p{position:absolute;top:560px;left:120px;right:120px;text-align:center;font:400 54px -apple-system,Helvetica,Arial,sans-serif;color:#d9d2c3}
+.dev{position:absolute;left:145px;top:760px;width:1000px;height:2200px;background:#000;border-radius:150px;padding:26px;
+ box-shadow:0 0 0 4px #4a3b17,0 60px 140px rgba(0,0,0,.8),0 0 260px rgba(212,166,51,.25)}
+.dev img{width:100%;height:100%;border-radius:126px;display:block}
+</style>
+<body>
+<div class=slide data-n=1><h1>Proof you paid for nothing</h1><p>A gold certificate with your name on it</p><div class=dev><img src="shots/1.png"></div></div>
+<div class=slide data-n=2><h1>Watch the money roll in</h1><p>Your income, ticking every second</p><div class=dev><img src="shots/2.png"></div></div>
+<div class=slide data-n=3><h1>Pop it. Feel it.</h1><p>Champagne with real haptics</p><div class=dev><img src="shots/3.png"></div></div>
+<div class=slide data-n=4><h1>Your butler awaits</h1><p>40+ lines, plus orders on request</p><div class=dev><img src="shots/4.png"></div></div>
+<div class=slide data-n=5><h1>Fly private. Sort of.</h1><p>A fictional boarding pass to share</p><div class=dev><img src="shots/5.png"></div></div>
+<div class=slide data-n=6><h1>Your captain is calling</h1><p>Fictional calls at a time you choose</p><div class=dev><img src="shots/6.png"></div></div>
+<script>var n=new URLSearchParams(location.search).get('n');document.querySelector('.slide[data-n="'+n+'"]').style.display='block'</script>
