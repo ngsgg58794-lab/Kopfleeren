@@ -40,22 +40,17 @@ var DECO=[
  [['coin',1110,1000,220,18,0],['gem',-40,1480,240,-14,0],['coin',1100,1700,130,-12,1]],
  [['gem',-30,1040,230,-12,0],['coin',1115,1420,230,20,0],['coin',70,1720,130,10,1]]];
 var TXT={
- en:[['Seven ways<br>to show off','Pure status. Zero use.'],
-     ['Proof you paid<br>for nothing','A gold certificate with your name on it'],
+ en:[['Proof you paid<br>for nothing','A gold certificate with your name on it'],
      ['Watch your<br>wealth grow','Your income, ticking every second'],
      ['Pop it.<br>Feel it.','Champagne with real haptics'],
      ['Your butler<br>awaits','40+ lines, plus orders on request'],
-     ['Fly private.<br>Sort of.','A fictional boarding pass to share'],
-     ['Your captain<br>is calling','Fictional calls at a time you choose'],
      ['Count the<br>working hours','Minimum-wage hours for any price']],
  de:[['Stolz bezahlt<br>für nichts','Goldenes Zertifikat mit deinem Namen'],
      ['Sieh dein Geld<br>wachsen','Dein Einkommen, jede Sekunde'],
      ['Kork knallt.<br>Du spürst es.','Champagner mit echter Haptik'],
      ['Dein Butler<br>wartet','40+ Sprüche, dazu Aufträge'],
-     ['Privat fliegen.<br>Fast.','Eine fiktive Bordkarte zum Teilen'],
-     ['Der Kapitän<br>ruft an','Fiktive Anrufe zur Wunschzeit'],
      ['Zähl die<br>Arbeitsstunden','Mindestlohn-Stunden für jeden Preis']]};
-var OFF=LANG==='de'?1:0; // de hat kein Menü-Bild
+var OFF=1; // DECO ab Index 1 (ohne Menü-Slide)
 var S=TXT[LANG].map(function(t,i){return [t[0],t[1],DECO[i+OFF]]});
 var seed=7;function r(){seed=(seed*16807)%2147483647;return seed/2147483647}
 S.forEach(function(s,i){

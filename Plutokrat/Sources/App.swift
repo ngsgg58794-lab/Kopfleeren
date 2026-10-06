@@ -50,7 +50,7 @@ struct NameGate: View {
 }
 
 enum Screen: String, Hashable, CaseIterable {
-    case certificate, ticker, champagne, butler, boarding, calls, peasant
+    case certificate, ticker, champagne, butler, peasant
 
     var title: LocalizedStringKey {
         switch self {
@@ -58,8 +58,6 @@ enum Screen: String, Hashable, CaseIterable {
         case .ticker: "Wealth Ticker"
         case .champagne: "Champagne"
         case .butler: "Butler"
-        case .boarding: "Private Jet Boarding Pass"
-        case .calls: "Calls"
         case .peasant: "Peasant Calculator"
         }
     }
@@ -70,8 +68,6 @@ enum Screen: String, Hashable, CaseIterable {
         case .ticker: "eurosign.circle"
         case .champagne: "wineglass"
         case .butler: "bell"
-        case .boarding: "airplane"
-        case .calls: "phone"
         case .peasant: "person.3"
         }
     }
@@ -79,7 +75,6 @@ enum Screen: String, Hashable, CaseIterable {
 
 struct HomeView: View {
     let name: String
-    @ObservedObject private var calls = CallCenter.shared
     // Launch-Argument `-startScreen <name>` öffnet direkt einen Screen (für automatische Screenshots).
     @State private var path: [Screen] = UserDefaults.standard.string(forKey: "startScreen")
         .flatMap(Screen.init(rawValue:)).map { [$0] } ?? []
@@ -97,7 +92,6 @@ struct HomeView: View {
             .navigationDestination(for: Screen.self) { destination($0) }
         }
         .tint(Gold.base)
-        .fullScreenCover(item: $calls.incoming) { c in CallScreen(caller: c) { calls.incoming = nil } }
     }
 
     @ViewBuilder private func destination(_ s: Screen) -> some View {
@@ -106,8 +100,6 @@ struct HomeView: View {
         case .ticker: TickerView()
         case .champagne: ChampagneView()
         case .butler: ButlerView()
-        case .boarding: BoardingPassView(name: name)
-        case .calls: FakeCallView()
         case .peasant: PeasantView()
         }
     }

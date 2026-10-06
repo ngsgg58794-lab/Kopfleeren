@@ -103,7 +103,7 @@ workflows:
           for lang in en de; do
             shot $lang 01_start -name ""
             shot $lang 02_menu -name Maximilian
-            for s in certificate ticker champagne butler boarding calls peasant; do
+            for s in certificate ticker champagne butler peasant; do
               shot $lang "03_$s" -name Maximilian -startScreen $s
             done
           done
