@@ -10,6 +10,8 @@ for lang in en de; do
   done
   convert out/${lang}_0*.png +append -resize 20% out/overview_$lang.png
 done
-# Apple-Größe 6,5" (1284x2778) zusätzlich erzeugen
-mkdir -p out/1284x2778
-for f in out/en_0*.png out/de_0*.png; do convert "$f" -filter Lanczos -resize 1284x2778! -alpha off "out/1284x2778/$(basename $f)"; done
+# Apple-Größen zusätzlich erzeugen (6,5" 1284x2778, 6,3" 1206x2622, 6,1" 1179x2556, 6,9" 1320x2868)
+for sz in 1284x2778 1206x2622 1179x2556 1320x2868; do
+  mkdir -p out/$sz
+  for f in out/en_0*.png out/de_0*.png; do convert "$f" -filter Lanczos -resize ${sz}! -alpha off "out/$sz/$(basename $f)"; done
+done
