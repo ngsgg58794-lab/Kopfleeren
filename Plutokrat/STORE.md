@@ -27,7 +27,7 @@ Available in English and German. The app collects no personal data and has no ad
 ## DE
 **Name:** Croesus - Spaß-App
 **Untertitel:** Eine Spaß-App übers Reichsein
-**Werbetext:** Eine Spaß-App ohne praktischen Nutzen. Champagner knallen lassen, den Butler rufen, einen Ticker mit erfundenem Einkommen beobachten. Sie kostet 100 €, und das ist der Witz.
+**Werbetext:** Eine Spaß-App ohne praktischen Nutzen. Champagner knallen lassen, den Butler rufen, Ticker mit erfundenem Einkommen beobachten. Sie kostet 100 €, und das ist der Witz.
 **Beschreibung:**
 Croesus ist eine Spaß-App ohne praktischen Nutzen. Sie kostet 100 €, und genau das ist der Witz.
 
